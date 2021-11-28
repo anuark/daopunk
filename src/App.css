@@ -1,4 +1,4 @@
-main {
+/*main {
   align-content: center;
   box-sizing: border-box;
   display: grid;
@@ -11,6 +11,12 @@ main {
   min-height: 100vh;
   padding: 72px 0;
   text-align: center;
+}*/
+main {
+  font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
+    'Arial', sans-serif;
+  hyphens: auto;
+  line-height: 1.65;
 }
 h1 {
   font-size: 45px;
