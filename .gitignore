@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/api/node_modules
 /.pnp
 .pnp.js
 
@@ -27,3 +28,5 @@ yarn-error.log*
 .env
 .env.build
 .vercel
+
+.eslintrc.json-bkp

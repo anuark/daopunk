@@ -1,5 +1,5 @@
 {
-  "name": "create-react-app",
+  "name": "daopunk",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +7,7 @@
     "react": "^16.6.1",
     "react-bootstrap": "^2.0.2",
     "react-dom": "^16.6.1",
+    "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3"
   },
   "scripts": {
@@ -20,5 +21,14 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-only-warn": "^1.0.3",
+    "eslint-plugin-promise": "^5.1.1",
+    "eslint-plugin-react": "^7.27.1"
+  }
 }

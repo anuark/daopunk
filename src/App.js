@@ -1,47 +1,37 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { Button, Form, Row, Container, Navbar } from 'react-bootstrap';
+import { Row, Container, Navbar } from 'react-bootstrap';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Logo from './assets/logo_size.png';
+import CreateDAO from './views/CreateDAO';
+import Dashboard from './views/Dashboard';
 
 function App() {
-  const [date, setDate] = useState(null);
-  useEffect(() => {
-    async function getDate() {
-      const res = await fetch('/api/date');
-      const newDate = await res.text();
-      setDate(newDate);
-    }
-    getDate();
-  }, []);
-
   return (
-    <Row>
-      <h1>Title 3</h1>
-      <Form>
-        <Form.Group className="mb-3" controlId="dao-name">
-          <Form.Label>DAO Name</Form.Label>
-          <Form.Control type="text" placeholder="Constitution DAO..." />
-          {/*<Form.Text className="text-muted">
-          </Form.Text> */}
-        </Form.Group>
-      
-        <Form.Group className="mb-3" controlId="dao-token">
-          <Form.Label>Token Name</Form.Label>
-          <Form.Control type="text" placeholder="Token" />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Quadratic Voting" />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    </Row>
+    <Container>
+      {/*<Navbar>
+        <Navbar.Brand href="#home">
+          <img
+            alt="logo"
+            src={Logo}
+            width="144"
+            height="96"
+            className="d-inline-block align-top"
+          />{' '}
+        </Navbar.Brand>
+        <Navbar.Link href="/create">Create DAO</Navbar.Link>
+        <Navbar.Link href="/Dashboard">Dashboard</Navbar.Link>
+      </Navbar>*/}
+      <Row>
+        <Routes>
+          <Route exact path="/create" component={CreateDAO} />
+          <Route exact path="/Dashboard" component={Dashboard} />
+          <Route exact path="/" render={() => ("hola123")} />
+        </Routes>
+      </Row>
+    </Container>
   );
 }
 
 export default App;
-
