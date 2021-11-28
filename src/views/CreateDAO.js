@@ -1,7 +1,7 @@
 import { Button, Form } from 'react-bootstrap';
 import React from 'react';
 
-export default function createDao() {
+export default function CreateDao() {
   return (
     <React.Fragment>
       <h1>Create DAO</h1>
