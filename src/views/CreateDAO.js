@@ -1,31 +1,35 @@
 import { Button, Form } from 'react-bootstrap';
+import { Outlet } from 'react-router-dom';
 import React from 'react';
 
-export default function CreateDao() {
+const CreateDao = () => {
+  console.log('CreateDao');
   return (
-    <React.Fragment>
+    <div>
       <h1>Create DAO</h1>
       <Form>
-        <Form.Group className="mb-3" controlId="dao-name">
-          <Form.Label>DAO Name</Form.Label>
-          <Form.Control type="text" placeholder="Constitution DAO..." />
-          {/* <Form.Text className="text-muted">
-              </Form.Text> */}
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Text className="text-muted">
+            We'll never share your email with anyone else.
+          </Form.Text>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="dao-token">
-          <Form.Label>Token Name</Form.Label>
-          <Form.Control type="text" placeholder="Token" />
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control type="password" placeholder="Password" />
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Quadratic Voting" />
+        <Form.Group controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-
         <Button variant="primary" type="submit">
-              Submit
+          Submit
         </Button>
       </Form>
-    </React.Fragment>
+      <Outlet />
+    </div>
   );
 };
+
+export default CreateDao;

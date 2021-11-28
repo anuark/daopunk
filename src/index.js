@@ -3,26 +3,23 @@ import { render } from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Container } from 'react-bootstrap';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import CreateDAO from './views/CreateDAO';
 import Dashboard from './views/Dashboard';
 import Home from './views/Home';
+import Header from './components/Header';
 
 // ReactDOM.render(<BrowserRouter><App /></BrowserRouter>, document.getElementById('root'));
 render(
   <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<App />}>
-        <Route index element={<Home />} />
-        <Route path="create" element={<CreateDAO />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        {/*<Route path="teams" element={<Teams />}>
-          <Route path=":teamId" element={<Team />} />
-          <Route path="new" element={<NewTeamForm />} />
-          <Route index element={<LeagueStandings />} />
-        </Route>*/}
-      </Route>
-    </Routes>
+    <Container>
+      <Header />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/create" element={<CreateDAO />} />
+      </Routes>
+    </Container>
   </BrowserRouter>,
   document.getElementById('root')
 );
