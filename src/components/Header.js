@@ -1,18 +1,28 @@
 import React from 'react';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
+import { Navbar, Nav, Form, FormControl, Button, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Logo from '../assets/logo_size.png';
 
 const Header = () => {
   return (
-    <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Link to="create">Create DAO</Link>
-          <Link to="dashboard">Dashboard</Link>
+    <Navbar bg="light" variant="light">
+      <Container>
+        <Navbar.Brand href="#home">
+          <img
+            alt=""
+            src={Logo}
+            width="144"
+            height="96"
+            className="d-inline-block align-top"
+          />{' '}
+        </Navbar.Brand>
+
+        <Nav className="me-auto">
+          <Nav.Link href="create">Create DAO</Nav.Link>
+          <Nav.Link href="#">Dashboard</Nav.Link>
+          <Nav.Link href="#">Submit Proposal</Nav.Link>
         </Nav>
-      </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };
