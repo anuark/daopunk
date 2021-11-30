@@ -1,21 +1,15 @@
-![React Logo](https://github.com/vercel/vercel/blob/master/packages/frameworks/logos/react.svg)
+# Basic Sample Hardhat Project
 
-# React Example
+This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
 
-This directory is a brief example of a [React](https://reactjs.org/) app with [Serverless Functions](https://vercel.com/docs/v2/serverless-functions/introduction) that can be deployed with Vercel and zero configuration.
-
-## Deploy Your Own
-
-Deploy your own React project, along with Serverless Functions, with Vercel.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/create-react-app-functions&template=create-react-app)
-
-_Live Example: https://create-react-app.now-examples.now.sh/_
-
-### How We Created This Example
-
-To get started with React, along with [Serverless Functions](https://vercel.com/docs/v2/serverless-functions/introduction), with Vercel, you can use the [Create-React-App CLI](https://reactjs.org/docs/create-a-new-react-app.html#create-react-app) to initialize the project:
+Try running some of the following tasks:
 
 ```shell
-$ npx create-react-app my-app
+npx hardhat accounts
+npx hardhat compile
+npx hardhat clean
+npx hardhat test
+npx hardhat node
+node scripts/sample-script.js
+npx hardhat help
 ```
