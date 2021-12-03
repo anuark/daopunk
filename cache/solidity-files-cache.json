@@ -1,12 +1,12 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/root/code/js/daopunk/contracts/Greeter.sol": {
-      "lastModificationDate": 1638558616300,
-      "contentHash": "f97d4c5725146bd23001a8653a124f6c",
-      "sourceName": "contracts/Greeter.sol",
+    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/Example.sol": {
+      "lastModificationDate": 1638568870203,
+      "contentHash": "db630370e9fd2e4fd44ff7145c7e3565",
+      "sourceName": "contracts/Example.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.5.16",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -30,18 +30,18 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.0"
+        "^0.5.16"
       ],
       "artifacts": [
-        "Greeter"
+        "Example"
       ]
     },
-    "/root/code/js/daopunk/node_modules/hardhat/console.sol": {
-      "lastModificationDate": 1638231108320,
-      "contentHash": "cc4777addd464ea56fa35b1c45df0591",
-      "sourceName": "hardhat/console.sol",
+    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/GovernorAlpha.sol": {
+      "lastModificationDate": 1638568870226,
+      "contentHash": "f28c1be1410f1b608112ff03aa953ebf",
+      "sourceName": "contracts/GovernorAlpha.sol",
       "solcConfig": {
-        "version": "0.8.4",
+        "version": "0.5.16",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -65,10 +65,119 @@
       },
       "imports": [],
       "versionPragmas": [
-        ">=0.4.22 <0.9.0"
+        "^0.5.16"
       ],
       "artifacts": [
-        "console"
+        "CompInterface",
+        "GovernorAlpha",
+        "TimelockInterface"
+      ]
+    },
+    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/SafeMath.sol": {
+      "lastModificationDate": 1638568870261,
+      "contentHash": "51e3bce6f64c8cbdb9f6a6c4d8ccaa1b",
+      "sourceName": "contracts/SafeMath.sol",
+      "solcConfig": {
+        "version": "0.5.16",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.16"
+      ],
+      "artifacts": [
+        "SafeMath"
+      ]
+    },
+    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/Timelock.sol": {
+      "lastModificationDate": 1638568870298,
+      "contentHash": "2c0715f49452e455f199f5ab73ef7a46",
+      "sourceName": "contracts/Timelock.sol",
+      "solcConfig": {
+        "version": "0.5.16",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./SafeMath.sol"
+      ],
+      "versionPragmas": [
+        "^0.5.16"
+      ],
+      "artifacts": [
+        "Timelock"
+      ]
+    },
+    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/Token.sol": {
+      "lastModificationDate": 1638568870338,
+      "contentHash": "ee7834963874f67a6722f05932f5bf57",
+      "sourceName": "contracts/Token.sol",
+      "solcConfig": {
+        "version": "0.5.16",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.5.16"
+      ],
+      "artifacts": [
+        "Token"
       ]
     }
   }
