@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/root/code/js/daopunk/contracts/Greeter.sol": {
-      "lastModificationDate": 1638231839620,
-      "contentHash": "54c28c84e5277b35b8c8329ce9755dae",
+      "lastModificationDate": 1638558616300,
+      "contentHash": "f97d4c5725146bd23001a8653a124f6c",
       "sourceName": "contracts/Greeter.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -28,9 +28,7 @@
           }
         }
       },
-      "imports": [
-        "hardhat/console.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         "^0.8.0"
       ],

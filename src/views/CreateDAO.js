@@ -16,7 +16,7 @@ const CreateDao = () => {
       const tokenCap = document.getElementById('tokenCap').value;
       const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
 
-      const res = await axios.post('localhost:3000/api/create-dao', {
+      const res = await axios.post('/api/create-dao', {
         name,
         owner,
         tokenName,
@@ -24,7 +24,9 @@ const CreateDao = () => {
         hasQuadraticVoting
       });
 
-      debugger;
+      if (res.status === 200) {
+        alert('DAO created');
+      }
     });
   }, []);
 
