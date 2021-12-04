@@ -49,7 +49,7 @@ contract GovernorAlpha {
         uint[] values;
 
         /// @notice The ordered list of function signatures to be called
-        string[] signatures;
+        // string[] signatures;
 
         /// @notice The ordered list of calldata to be passed to each call
         bytes[] calldatas;
@@ -113,7 +113,8 @@ contract GovernorAlpha {
     bytes32 public constant BALLOT_TYPEHASH = keccak256("Ballot(uint256 proposalId,bool support)");
 
     /// @notice An event emitted when a new proposal is created
-    event ProposalCreated(uint id, address proposer, address[] targets, uint[] values, string[] signatures, bytes[] calldatas, uint startBlock, uint endBlock, string description);
+    event ProposalCreated(uint id, address proposer, address[] targets, uint[] values, bytes[] calldatas, uint startBlock, uint endBlock, string description);
+    // removed signatures
 
     /// @notice An event emitted when a vote has been cast on a proposal
     event VoteCast(address voter, uint proposalId, bool support, uint votes);
@@ -133,9 +134,9 @@ contract GovernorAlpha {
         guardian = guardian_;
     }
 
-    function propose(address[] memory targets, uint[] memory values, string[] memory signatures, bytes[] memory calldatas, string memory description) public returns (uint) {
+    function propose(address[] memory targets, uint[] memory values, bytes[] memory calldatas, string memory description) public returns (uint) {
         require(comp.getPriorVotes(msg.sender, sub256(block.number, 1)) > proposalThreshold(), "GovernorAlpha::propose: proposer votes below proposal threshold");
-        require(targets.length == values.length && targets.length == signatures.length && targets.length == calldatas.length, "GovernorAlpha::propose: proposal function information arity mismatch");
+        require(targets.length == values.length && targets.length == calldatas.length, "GovernorAlpha::propose: proposal function information arity mismatch");
         require(targets.length != 0, "GovernorAlpha::propose: must provide actions");
         require(targets.length <= proposalMaxOperations(), "GovernorAlpha::propose: too many actions");
 
@@ -156,7 +157,7 @@ contract GovernorAlpha {
             eta: 0,
             targets: targets,
             values: values,
-            signatures: signatures,
+            // signatures: signatures,
             calldatas: calldatas,
             startBlock: startBlock,
             endBlock: endBlock,
@@ -169,7 +170,7 @@ contract GovernorAlpha {
         proposals[newProposal.id] = newProposal;
         latestProposalIds[newProposal.proposer] = newProposal.id;
 
-        emit ProposalCreated(newProposal.id, msg.sender, targets, values, signatures, calldatas, startBlock, endBlock, description);
+        emit ProposalCreated(newProposal.id, msg.sender, targets, values, calldatas, startBlock, endBlock, description);
         return newProposal.id;
     }
 
@@ -178,15 +179,15 @@ contract GovernorAlpha {
         Proposal storage proposal = proposals[proposalId];
         uint eta = add256(block.timestamp, timelock.delay());
         for (uint i = 0; i < proposal.targets.length; i++) {
-            _queueOrRevert(proposal.targets[i], proposal.values[i], proposal.signatures[i], proposal.calldatas[i], eta);
+            _queueOrRevert(proposal.targets[i], proposal.values[i], proposal.calldatas[i], eta);
         }
         proposal.eta = eta;
         emit ProposalQueued(proposalId, eta);
     }
 
-    function _queueOrRevert(address target, uint value, string memory signature, bytes memory data, uint eta) internal {
-        require(!timelock.queuedTransactions(keccak256(abi.encode(target, value, signature, data, eta))), "GovernorAlpha::_queueOrRevert: proposal action already queued at eta");
-        timelock.queueTransaction(target, value, signature, data, eta);
+    function _queueOrRevert(address target, uint value, bytes memory data, uint eta) internal {
+        require(!timelock.queuedTransactions(keccak256(abi.encode(target, value, data, eta))), "GovernorAlpha::_queueOrRevert: proposal action already queued at eta");
+        timelock.queueTransaction(target, value, data, eta);
     }
 
     function execute(uint proposalId) public payable {
@@ -194,7 +195,7 @@ contract GovernorAlpha {
         Proposal storage proposal = proposals[proposalId];
         proposal.executed = true;
         for (uint i = 0; i < proposal.targets.length; i++) {
-            timelock.executeTransaction.value(proposal.values[i])(proposal.targets[i], proposal.values[i], proposal.signatures[i], proposal.calldatas[i], proposal.eta);
+            timelock.executeTransaction.value(proposal.values[i])(proposal.targets[i], proposal.values[i], proposal.calldatas[i], proposal.eta);
         }
         emit ProposalExecuted(proposalId);
     }
@@ -208,15 +209,15 @@ contract GovernorAlpha {
 
         proposal.canceled = true;
         for (uint i = 0; i < proposal.targets.length; i++) {
-            timelock.cancelTransaction(proposal.targets[i], proposal.values[i], proposal.signatures[i], proposal.calldatas[i], proposal.eta);
+            timelock.cancelTransaction(proposal.targets[i], proposal.values[i], proposal.calldatas[i], proposal.eta);
         }
 
         emit ProposalCanceled(proposalId);
     }
 
-    function getActions(uint proposalId) public view returns (address[] memory targets, uint[] memory values, string[] memory signatures, bytes[] memory calldatas) {
+    function getActions(uint proposalId) public view returns (address[] memory targets, uint[] memory values, bytes[] memory calldatas) {
         Proposal storage p = proposals[proposalId];
-        return (p.targets, p.values, p.signatures, p.calldatas);
+        return (p.targets, p.values, p.calldatas);
     }
 
     function getReceipt(uint proposalId, address voter) public view returns (Receipt memory) {
@@ -290,12 +291,12 @@ contract GovernorAlpha {
 
     function __queueSetTimelockPendingAdmin(address newPendingAdmin, uint eta) public {
         require(msg.sender == guardian, "GovernorAlpha::__queueSetTimelockPendingAdmin: sender must be gov guardian");
-        timelock.queueTransaction(address(timelock), 0, "setPendingAdmin(address)", abi.encode(newPendingAdmin), eta);
+        timelock.queueTransaction(address(timelock), 0, abi.encode(newPendingAdmin), eta);
     }
 
     function __executeSetTimelockPendingAdmin(address newPendingAdmin, uint eta) public {
         require(msg.sender == guardian, "GovernorAlpha::__executeSetTimelockPendingAdmin: sender must be gov guardian");
-        timelock.executeTransaction(address(timelock), 0, "setPendingAdmin(address)", abi.encode(newPendingAdmin), eta);
+        timelock.executeTransaction(address(timelock), 0, abi.encode(newPendingAdmin), eta);
     }
 
     function add256(uint256 a, uint256 b) internal pure returns (uint) {
@@ -321,9 +322,9 @@ interface TimelockInterface {
     function GRACE_PERIOD() external view returns (uint);
     function acceptAdmin() external;
     function queuedTransactions(bytes32 hash) external view returns (bool);
-    function queueTransaction(address target, uint value, string calldata signature, bytes calldata data, uint eta) external returns (bytes32);
-    function cancelTransaction(address target, uint value, string calldata signature, bytes calldata data, uint eta) external;
-    function executeTransaction(address target, uint value, string calldata signature, bytes calldata data, uint eta) external payable returns (bytes memory);
+    function queueTransaction(address target, uint value, bytes calldata data, uint eta) external returns (bytes32);
+    function cancelTransaction(address target, uint value, bytes calldata data, uint eta) external;
+    function executeTransaction(address target, uint value, bytes calldata data, uint eta) external payable returns (bytes memory);
 }
 
 interface CompInterface {

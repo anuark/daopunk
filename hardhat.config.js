@@ -5,8 +5,8 @@ module.exports = {
   solidity: "0.5.16",
   networks: {
     rinkeby: {
-      url: '',
-      accounts: []
+      url: process.env.ALCHEMY_RINKEBY_URL,
+      accounts: [process.env.RINKEBY_PRIVATE_KEY]
     },
     ropsten: {
       url: 'https://eth-ropsten.alchemyapi.io/v2/l6LhfBO7yvbJ2zT6ogc-a-5O62tnnQSM',

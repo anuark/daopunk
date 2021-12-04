@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <Navbar bg="light" variant="light">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img
             alt=""
             src={Logo}
@@ -18,9 +18,9 @@ const Header = () => {
         </Navbar.Brand>
 
         <Nav className="me-auto">
-          <Nav.Link href="create">Create DAO</Nav.Link>
-          <Nav.Link href="#">Dashboard</Nav.Link>
-          <Nav.Link href="#">Submit Proposal</Nav.Link>
+          <Nav.Link href="/create">Create DAO</Nav.Link>
+          <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+          {/* <Nav.Link href="/">Submit Proposal</Nav.Link> */}
         </Nav>
       </Container>
     </Navbar>

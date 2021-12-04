@@ -206,7 +206,7 @@ contract Token {
 
         // First check most recent balance
         if (checkpoints[account][nCheckpoints - 1].fromBlock <= blockNumber) {
-            return checkpoints[account][nCheckpoints - 1].votes;//
+            return checkpoints[account][nCheckpoints - 1].votes;
         }
 
         // Next check implicit zero balance
@@ -220,14 +220,14 @@ contract Token {
             uint32 center = upper - (upper - lower) / 2; // ceil, avoiding overflow
             Checkpoint memory cp = checkpoints[account][center];
             if (cp.fromBlock == blockNumber) {
-                return cp.votes;//
+                return cp.votes;
             } else if (cp.fromBlock < blockNumber) {
                 lower = center;
             } else {
                 upper = center - 1;
             }
         }
-        return checkpoints[account][lower].votes;//
+        return checkpoints[account][lower].votes;
     }
 
     function _delegate(address delegator, address delegatee) internal {
