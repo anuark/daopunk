@@ -8,7 +8,7 @@ const fs = require('fs');
  * @return [byteCode, ABI]
  */
 
-/*
+
 const compile = (content, contractName) => {
   const input = {
     language: 'Solidity',
@@ -42,4 +42,3 @@ const compile = (content, contractName) => {
   const contract = await Greeter.deploy('hello');
   console.log(contract, contract.address);
 })();
-*/

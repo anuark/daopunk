@@ -12,7 +12,7 @@
     "react-dom": "^16.6.1",
     "react-router-dom": "^6.0.2",
     "react-scripts": "^4.0.3",
-    "solc": "^0.8.10"
+    "solc": "^0.5.16"
   },
   "scripts": {
     "dev": "BROWSER=none react-scripts start",
