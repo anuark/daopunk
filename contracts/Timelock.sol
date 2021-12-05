@@ -1,10 +1,6 @@
-pragma solidity ^0.5.16;
-
-import "./SafeMath.sol";
+pragma solidity ^0.7.3;
 
 contract Timelock {
-    using SafeMath for uint;
-
     event NewAdmin(address indexed newAdmin);
     event NewPendingAdmin(address indexed newPendingAdmin);
     event NewDelay(uint indexed newDelay);
@@ -31,7 +27,7 @@ contract Timelock {
         delay = delay_;
     }
 
-    function() external payable { }
+    receive() external payable { }
 
     function setDelay(uint delay_) public {
         require(msg.sender == address(this), "Timelock::setDelay: Call must come from Timelock.");
@@ -57,9 +53,16 @@ contract Timelock {
         emit NewPendingAdmin(pendingAdmin);
     }
 
+    function adder(uint256 a, uint256 b) private pure returns (uint256) {
+        uint256 c = a + b;
+        require(c >= a, "SafeMath: addition overflow");
+
+        return c;
+    }
+
     function queueTransaction(address target, uint value, bytes memory data, uint eta) public returns (bytes32) {
         require(msg.sender == admin, "Timelock::queueTransaction: Call must come from admin.");
-        require(eta >= getBlockTimestamp().add(delay), "Timelock::queueTransaction: Estimated execution block must satisfy delay.");
+        require(eta >= adder(getBlockTimestamp(), delay), "Timelock::queueTransaction: Estimated execution block must satisfy delay.");
 
         bytes32 txHash = keccak256(abi.encode(target, value, data, eta));
         queuedTransactions[txHash] = true;
@@ -83,7 +86,7 @@ contract Timelock {
         bytes32 txHash = keccak256(abi.encode(target, value, data, eta));
         require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
         require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
-        require(getBlockTimestamp() <= eta.add(GRACE_PERIOD), "Timelock::executeTransaction: Transaction is stale.");
+        require(getBlockTimestamp() <= adder(eta, GRACE_PERIOD), "Timelock::executeTransaction: Transaction is stale.");
 
         queuedTransactions[txHash] = false;
 
@@ -96,7 +99,7 @@ contract Timelock {
         // }
 
         // solium-disable-next-line security/no-call-value
-        (bool success, bytes memory returnData) = target.call.value(value)(callData);
+        (bool success, bytes memory returnData) = target.call{value:value}(callData);
         require(success, "Timelock::executeTransaction: Transaction execution reverted.");
 
         emit ExecuteTransaction(txHash, target, value, data, eta);

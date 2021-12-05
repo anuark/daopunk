@@ -1,14 +1,16 @@
+/*
 const solc = require('solc');
 const { ethers } = require('hardhat');
 const { ContractFactory } = ethers;
 const fs = require('fs');
+*/
 
 /**
  * @var content Buffer
  * @return [byteCode, ABI]
  */
 
-
+/*
 const compile = (content, contractName) => {
   const input = {
     language: 'Solidity',
@@ -42,3 +44,4 @@ const compile = (content, contractName) => {
   const contract = await Greeter.deploy('hello');
   console.log(contract, contract.address);
 })();
+*/

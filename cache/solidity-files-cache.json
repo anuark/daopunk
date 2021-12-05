@@ -6,7 +6,7 @@
       "contentHash": "db630370e9fd2e4fd44ff7145c7e3565",
       "sourceName": "contracts/Example.sol",
       "solcConfig": {
-        "version": "0.5.16",
+        "version": "0.7.3",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -30,7 +30,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.5.16"
+        "^0.7.3"
       ],
       "artifacts": [
         "Example"
@@ -41,7 +41,7 @@
       "contentHash": "da380a7abead5df6d7022c03f3fc0aad",
       "sourceName": "contracts/GovernorAlpha.sol",
       "solcConfig": {
-        "version": "0.5.16",
+        "version": "0.7.3",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -65,7 +65,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.5.16"
+        "^0.7.3"
       ],
       "artifacts": [
         "CompInterface",
@@ -78,7 +78,7 @@
       "contentHash": "51e3bce6f64c8cbdb9f6a6c4d8ccaa1b",
       "sourceName": "contracts/SafeMath.sol",
       "solcConfig": {
-        "version": "0.5.16",
+        "version": "0.7.3",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -102,7 +102,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.5.16"
+        "^0.7.3"
       ],
       "artifacts": [
         "SafeMath"
@@ -113,7 +113,7 @@
       "contentHash": "f235cc6d47c0163f0b9e29e9503880a4",
       "sourceName": "contracts/Timelock.sol",
       "solcConfig": {
-        "version": "0.5.16",
+        "version": "0.7.3",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -139,7 +139,7 @@
         "./SafeMath.sol"
       ],
       "versionPragmas": [
-        "^0.5.16"
+        "^0.7.3"
       ],
       "artifacts": [
         "Timelock"
@@ -150,7 +150,7 @@
       "contentHash": "559d96da3cfc254030aab638c13d2a2c",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
-        "version": "0.5.16",
+        "version": "0.7.3",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -174,7 +174,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.5.16"
+        "^0.7.3"
       ],
       "artifacts": [
         "Token"

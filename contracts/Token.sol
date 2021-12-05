@@ -1,5 +1,5 @@
-pragma solidity ^0.5.16;
-pragma experimental ABIEncoderV2;
+pragma solidity ^0.7.3;
+// pragma abicoder v2; 
 
 contract Token {
     /// @notice EIP-20 token name for this token
@@ -14,10 +14,8 @@ contract Token {
     /// @notice Total number of tokens in circulation
     uint public constant totalSupply = 10000000e18; // 10 million Comp
 
-    /// @notice Allowance amounts on behalf of others
     mapping (address => mapping (address => uint96)) internal allowances;
 
-    /// @notice Official record of token balances for each account
     mapping (address => uint96) internal balances;
 
     /// @notice A record of each accounts delegate
