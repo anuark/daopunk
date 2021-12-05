@@ -34,12 +34,12 @@ const compile = (fileBuf, name) => {
     case 'Token.sol':
       res = [output.contracts.name.Token.abi, output.contracts.name.Token.evm.bytecode];
       break;
-    // case 'Timelock.sol':
-    //   res = [output.contracts.name.Timelock.abi, output.contracts.name.Timelock.evm.bytecode];
-    //   break;
-    // case 'GovernorAlpha.sol':
-    //   res = [output.contracts.name.GovernorAlpha.abi, output.contracts.name.GovernorAlpha.evm.bytecode];
-    //   break;
+    case 'Timelock.sol':
+      res = [output.contracts.name.Timelock.abi, output.contracts.name.Timelock.evm.bytecode];
+      break;
+    case 'GovernorAlpha.sol':
+      res = [output.contracts.name.GovernorAlpha.abi, output.contracts.name.GovernorAlpha.evm.bytecode];
+      break;
   }
 
   return res;

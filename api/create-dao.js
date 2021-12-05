@@ -15,11 +15,14 @@ export default async function handler(req, res) {
   const fileBufToken = fs.readFileSync('contracts/Token.sol');
   const [abiTk, bytecodeTk] = compile(fileBufToken.toString('utf8'), 'Token.sol');
 
+  /** COMMENT OUT FOR TESTING
   // const fileBufTimelock = fs.readFileSync('contracts/Timelock.sol');
   // const [abiTm, byteCodeTm] = compile(fileBufTimelock.toString('utf8'), 'Timelock.sol');
 
   // const fileBufGovernor = fs.readFileSync('contracts/GovernorAlpha.sol');
   // const [abiGv, byteCodeGv] = compile(fileBufGovernor.toString('utf8'), 'GovernorAlpha.sol');
+  */
+
 
   // const Factory = new ContractFactory(abi, byteCode);
   const Token = await ethers.getContractFactory(abiTk, bytecodeTk);
@@ -27,19 +30,25 @@ export default async function handler(req, res) {
   console.log(`TOKEN CONTRACT: ${token.address}`);
 
   // add nonce, nonce + addr1 = GovernorAddr
-  // const nonce = await ethers.provider.getTransactionCount(addr1);
-  // const governorAddr = ethers.utils.getContractAddress({ from: addr1, nonce: nonce + 1 });
-  // console.log(`GOV-ADDR: ${governorAddr}`);
+
+  /** COMMENT OUT FOR TESTING
+  const nonce = await ethers.provider.getTransactionCount(addr1);
+  const governorAddr = ethers.utils.getContractAddress({ from: addr1, nonce: nonce + 1 });
+  console.log(`GOV-ADDR: ${governorAddr}`);
+  */
 
   // deploy timelock contract w/ GovernorAddr (supports proposal process functionality)
-  // const Timelock = await ethers.getContractFactory(abiTm, byteCodeTm);
-  // const timelock = await Timelock.deploy(governorAddr, 0);
-  // await timelock.deployed();
-  // console.log(`TIMELOCK CONTRACT: ${timelock.address}`);
 
-  // const GovernorAlpha = await ethers.getContractFactory(abiGv, byteCodeGv);
-  // const govContract = await GovernorAlpha.deploy(timelock.address, token.address, addr1);
-  // console.log(`GOVERNOR CONTRACT: ${govContract.address}`);
+  /** COMMENT OUT FOR TESTING
+  const Timelock = await ethers.getContractFactory(abiTm, byteCodeTm);
+  const timelock = await Timelock.deploy(governorAddr, 0);
+  await timelock.deployed();
+  console.log(`TIMELOCK CONTRACT: ${timelock.address}`);
+
+  const GovernorAlpha = await ethers.getContractFactory(abiGv, byteCodeGv);
+  const govContract = await GovernorAlpha.deploy(timelock.address, token.address, addr1);
+  console.log(`GOVERNOR CONTRACT: ${govContract.address}`);
+  */
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
