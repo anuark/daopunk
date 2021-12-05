@@ -1,0 +1,12 @@
+.dao-item {
+  margin: 40px 20px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  border-left: none;
+  box-shadow: 0px 3px 0px rgba(0, 0, 0, 0.1);
+}
+
+.dao-item a {
+    text-decoration: none;
+}
