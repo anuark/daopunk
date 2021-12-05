@@ -1,4 +1,5 @@
-pragma solidity ^0.7.3;
+//SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.10;
 
 contract Example {
   string public message;

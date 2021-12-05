@@ -1,12 +1,13 @@
-pragma solidity ^0.7.3;
+//SPDX-License-Identifier: Unlicense
+pragma solidity 0.8.10;
 // pragma abicoder v2; 
 
 contract Token {
     /// @notice EIP-20 token name for this token
-    string public constant name = "Confed";
+    string public name = "Confed";
 
     /// @notice EIP-20 token symbol for this token
-    string public constant symbol = "CFD";
+    string public symbol = "CFD";
 
     /// @notice EIP-20 token decimals for this token
     uint8 public constant decimals = 18;
@@ -58,8 +59,10 @@ contract Token {
      * @notice Construct a new Comp token
      * @param account The initial account to grant all the tokens
      */
-    constructor(address account) public {
+    constructor(address account, string memory _name, string memory _symbol) public {
         balances[account] = uint96(totalSupply);
+        name = _name;
+        symbol = _symbol;
         emit Transfer(address(0), account, totalSupply);
     }
 
@@ -83,8 +86,9 @@ contract Token {
      */
     function approve(address spender, uint rawAmount) external returns (bool) {
         uint96 amount;
-        if (rawAmount == uint(-1)) {
-            amount = uint96(-1);
+        if (rawAmount >= 79228162514264337593543950336-1) {
+            // amount = uint96(-1);
+            amount = 79228162514264337593543950336-1;
         } else {
             amount = safe96(rawAmount, "Comp::approve: amount exceeds 96 bits");
         }
@@ -128,7 +132,7 @@ contract Token {
         uint96 spenderAllowance = allowances[src][spender];
         uint96 amount = safe96(rawAmount, "Comp::approve: amount exceeds 96 bits");
 
-        if (spender != src && spenderAllowance != uint96(-1)) {
+        if (spender != src && spenderAllowance != 79228162514264337593543950336-1) {
             uint96 newAllowance = sub96(spenderAllowance, amount, "Comp::transferFrom: transfer amount exceeds spender allowance");
             allowances[src][spender] = newAllowance;
 
@@ -163,7 +167,7 @@ contract Token {
         address signatory = ecrecover(digest, v, r, s);
         require(signatory != address(0), "Comp::delegateBySig: invalid signature");
         require(nonce == nonces[signatory]++, "Comp::delegateBySig: invalid nonce");
-        require(now <= expiry, "Comp::delegateBySig: signature expired");
+        require(block.timestamp <= expiry, "Comp::delegateBySig: signature expired");
         return _delegate(signatory, delegatee);
     }
 
@@ -301,7 +305,7 @@ contract Token {
         return a - b;
     }
 
-    function getChainId() internal pure returns (uint) {
+    function getChainId() internal view returns (uint) {
         uint256 chainId;
         assembly { chainId := chainid() }
         return chainId;

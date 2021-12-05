@@ -15,13 +15,15 @@ const CreateDao = () => {
       const tokenName = document.getElementById('tokenName').value;
       const tokenCap = document.getElementById('tokenCap').value;
       const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
+      const tokenSymbol = document.getElementById('tokenSymbol').value;
 
       const res = await axios.post('/api/create-dao', {
         name,
         owner,
         tokenName,
         tokenCap,
-        hasQuadraticVoting
+        hasQuadraticVoting,
+        tokenSymbol
       });
 
       if (res.status === 200) {
@@ -65,6 +67,13 @@ const CreateDao = () => {
               <Form.Group controlId="tokenCap">
                 <Form.Label>Token Capacity</Form.Label>
                 <Form.Control type="text" placeholder="100000" />
+              </Form.Group>
+            </Col>
+
+            <Col>
+              <Form.Group controlId="tokenSymbol">
+                <Form.Label>Token Symbol</Form.Label>
+                <Form.Control type="text" placeholder="CONST" />
               </Form.Group>
             </Col>
           </Row>

@@ -1,3 +1,4 @@
+//SPDX-License-Identifier: Unlicense
 pragma solidity ^0.7.3;
 
 // From https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/math/Math.sol

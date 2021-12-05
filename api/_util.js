@@ -24,9 +24,10 @@ const compile = (fileBuf, name) => {
     }
   };  
   const output = JSON.parse(solc.compile(JSON.stringify(input)));
-  if (output.errors) {
-    throw 'compilation error!!'
-  }
+  console.log(output);
+  // if (output.errors) {
+  //   throw 'compilation error!!'
+  // }
 
   let res;
 

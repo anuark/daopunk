@@ -3,6 +3,7 @@ require("dotenv").config();
 
 module.exports = {
   solidity: "^0.7.3",
+  defaultNetwork: 'localhost',
   networks: {
     // rinkeby: {
     //   url: process.env.ALCHEMY_RINKEBY_URL,

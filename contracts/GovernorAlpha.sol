@@ -1,9 +1,8 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity 0.8.10;
-// pragma experimental ABIEncoderV2;
 
 contract GovernorAlpha {
-    string public constant name = "GovernorAlpha";
+    string public name = "GovernorAlpha";
 
     function quorumVotes() public pure returns (uint) { return 5000000e18; } // 5,000,000 = 50%
 
@@ -87,10 +86,11 @@ contract GovernorAlpha {
     /// @notice An event emitted when a proposal has been executed in the Timelock
     event ProposalExecuted(uint id);
 
-    constructor(address timelock_, address comp_, address guardian_) public {
-        timelock = TimelockInterface(timelock_);
-        comp = CompInterface(comp_);
-        guardian = guardian_;
+    constructor(address _timelock, address _comp, address _guardian, string memory _name) public {
+        timelock = TimelockInterface(_timelock);
+        comp = CompInterface(_comp);
+        guardian = _guardian;
+        name = _name;
     }
 
     function propose(address[] memory targets, uint[] memory values, bytes[] memory calldatas, string memory description) public returns (uint) {
