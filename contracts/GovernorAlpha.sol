@@ -1,4 +1,5 @@
-pragma solidity ^0.7.3
+//SPDX-License-Identifier: Unlicense
+pragma solidity 0.8.10;
 // pragma experimental ABIEncoderV2;
 
 contract GovernorAlpha {
@@ -109,24 +110,20 @@ contract GovernorAlpha {
         uint endBlock = add256(startBlock, votingPeriod());
 
         proposalCount++;
-        Proposal memory newProposal = Proposal({
-            id: proposalCount,
-            proposer: msg.sender,
-            eta: 0,
-            targets: targets,
-            values: values,
-            // signatures: signatures,
-            calldatas: calldatas,
-            startBlock: startBlock,
-            endBlock: endBlock,
-            forVotes: 0,
-            againstVotes: 0,
-            canceled: false,
-            executed: false
-        });
-
-        proposals[newProposal.id] = newProposal;
-        latestProposalIds[newProposal.proposer] = newProposal.id;
+        Proposal storage newProposal = proposals[proposalCount];
+        newProposal.id= proposalCount;
+        newProposal.proposer=msg.sender;
+        newProposal.eta= 0;
+        newProposal.targets=targets;
+        newProposal.values=values;
+        // signatures: signatures,
+        newProposal.calldatas= calldatas;
+        newProposal.startBlock= startBlock;
+        newProposal.endBlock= endBlock;
+        newProposal.forVotes= 0;
+        newProposal.againstVotes= 0;
+        newProposal.canceled=false;
+        newProposal.executed= false;
 
         emit ProposalCreated(newProposal.id, msg.sender, targets, values, calldatas, startBlock, endBlock, description);
         return newProposal.id;
@@ -263,12 +260,12 @@ contract GovernorAlpha {
         return c;
     }
 
-    function sub256(uint256 a, uint256 b) internal pure returns (uint) {
+    function sub256(uint256 a, uint256 b) internal view returns (uint) {
         require(b <= a, "subtraction underflow");
         return a - b;
     }
 
-    function getChainId() internal pure returns (uint) {
+    function getChainId() internal view returns (uint) {
         uint chainId;
         assembly { chainId := chainid() }
         return chainId;
