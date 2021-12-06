@@ -5,10 +5,10 @@ module.exports = {
   solidity: "^0.7.3",
   defaultNetwork: 'localhost',
   networks: {
-    // rinkeby: {
-    //   url: process.env.ALCHEMY_RINKEBY_URL,
-    //   accounts: [process.env.RINKEBY_PRIVATE_KEY]
-    // },
+    rinkeby: {
+      url: process.env.ALCHEMY_RINKEBY_URL,
+      accounts: [process.env.RINKEBY_PRIVATE_KEY]
+    },
     ropsten: {
       url: 'https://eth-ropsten.alchemyapi.io/v2/l6LhfBO7yvbJ2zT6ogc-a-5O62tnnQSM',
       accounts: ['a02007cfef8f1ac2fdabf32259fe02dc73233eed400f8955520861ff0c2f127b']

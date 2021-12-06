@@ -116,7 +116,6 @@ contract GovernorAlpha {
         newProposal.eta= 0;
         newProposal.targets=targets;
         newProposal.values=values;
-        // signatures: signatures,
         newProposal.calldatas= calldatas;
         newProposal.startBlock= startBlock;
         newProposal.endBlock= endBlock;

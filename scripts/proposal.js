@@ -12,12 +12,11 @@ async function main() {
 
   const targets = [exampleAddr];
   const values = ["0"];
-  const signatures = [""];
   const calldatas = [example.interface.encodeFunctionData("changeMsg", ["Anarchy!"])];
   const description = "Setting a new message!";
 
   const govAlpha = await ethers.getContractAt("GovernorAlpha", govAlphaAddr);
-  const tx = await govAlpha.propose(targets, values, signatures, calldatas, description);
+  const tx = await govAlpha.propose(targets, values, calldatas, description);
   const receipt = await tx.wait();
 
   console.log(receipt);
