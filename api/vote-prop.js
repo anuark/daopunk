@@ -1,7 +1,7 @@
 const { ethers } = require('hardhat');
 
 export default async function handler(req, res) {
-  const { id, support } = req.body;
+  const { id, voteBool } = req.body;
 
   // get msg.sender from metamask
   const [addr1] = await ethers.provider.listAccounts();
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   await token.delegate(addr1);
 
   const govAlpha = await ethers.getContractAt(governorAlphaName, govAlphaAddr);
-  await govAlpha.castVote(id, support);
+  await govAlpha.castVote(id, voteBool);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');

@@ -11,8 +11,12 @@ const CastVote = () => {
       ev.preventDefault();
       const id = document.getElementById('id').value;
       const support = document.getElementById('support').value;
+      const reject = document.getElementById('reject').value;
 
-      const res = await axios.post('/api/vote-prop', { id, support });
+      if (support && !reject) voteBool = true;
+      if (!support && reject) voteBool = false;
+
+      const res = await axios.post('/api/vote-prop', { id, voteBool });
 
       if (res.status === 200) {
         alert('Vote cast');
@@ -32,11 +36,12 @@ const CastVote = () => {
                 <Form.Control type="text" placeholder="1" />
               </Form.Group>
             </Col>
-
             <Col>
               <Form.Group controlId="support">
-                <Form.Label>Support</Form.Label>
-                <Form.Control type="text" placeholder='true' />
+                <Form.Check type="checkbox" label="Support" />
+              </Form.Group>
+              <Form.Group controlId="reject">
+                <Form.Check type="checkbox" label="Reject" />
               </Form.Group>
             </Col>
           </Row>

@@ -37,7 +37,7 @@ const CreateProposal = () => {
           <Row>
             <Col>
               <Form.Group controlId="targets">
-                <Form.Label>Target</Form.Label>
+                <Form.Label>Call Contract Target</Form.Label>
                 <Form.Control type="text" placeholder="0x1234" />
               </Form.Group>
             </Col>
