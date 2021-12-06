@@ -1,11 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Navbar, Nav, Form, FormControl, Button, Container } from 'react-bootstrap';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/logo_size.png';
 import { BsPlusCircle, BsFillLightningChargeFill } from 'react-icons/bs';
+import MetaMaskOnboarding from '@metamask/onboarding';
 
 const Header = () => {
+  const [buttonText, setButtonText] = useState('Connect Wallet');
+  const [connected, setConnected] = useState(false);
+  const [isDisabled, setDisabled] = useState(false);
+  const [accounts, setAccounts] = useState([]);
+  const onboarding = useRef();
+
+  useEffect(() => {
+    if (!onboarding.current) {
+      onboarding.current = new MetaMaskOnboarding();
+    }
+
+    const handleNewAccounts = (newAccounts) => {
+      setAccounts(newAccounts);
+    }
+
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then(handleNewAccounts);
+      window.ethereum.on('accountsChanged', handleNewAccounts);
+      return () => {
+        try {
+          window.ethereum.off('accountsChanged', handleNewAccounts);
+        } catch(_) {}
+      };
+    }
+  }, []);
+
+  useEffect(() => {
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      console.log(accounts, 'accounts');
+      if (accounts.length > 0) {
+        setConnected(true);
+        onboarding.current.stopOnboarding();
+      } else {
+        setConnected(false);
+      }
+    }
+  }, [accounts]);
+
+  const onClick = () => {
+      console.log(MetaMaskOnboarding.isMetaMaskInstalled());
+    if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+      window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then((newAccounts) => setAccounts(newAccounts));
+    } else {
+      onboarding.current.startOnboarding();
+    }
+  };
+
   return (
     <Navbar bg="light" variant="light">
       <Container>
@@ -21,15 +73,19 @@ const Header = () => {
         </Navbar.Brand>
 
         <Nav className="justify-content-end">
-          <NavDropdown title="Rinkeby" id="nav-dropdown" className="me-3">
-            <NavDropdown.Item  eventKey="4.1">Ethereum mainnet</NavDropdown.Item>
-            <NavDropdown.Item>Ropsten</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.3">Localhost</NavDropdown.Item>
-          </NavDropdown>
-          <Nav.Link href="/dashboard" className="me-3"><BsFillLightningChargeFill />Connect Wallet</Nav.Link>
-          <Nav>
-            <Button variant="primary" className="me-3"><BsPlusCircle /> &nbsp;Create DAO</Button>
-          </Nav>
+          <Nav.Item>
+              <NavDropdown title="Rinkeby" id="nav-dropdown" className="me-3">
+                <NavDropdown.Item  eventKey="4.1">Ethereum mainnet</NavDropdown.Item>
+                <NavDropdown.Item>Ropsten</NavDropdown.Item>
+                <NavDropdown.Item eventKey="4.3">Localhost</NavDropdown.Item>
+              </NavDropdown>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link role={connected ? "text" : "button"} className={`me-3 pt-2  ${connected ? 'text-muted' : 'text-primary pe-auto'}`} onClick={onClick}><BsFillLightningChargeFill />{connected ? 'connected' : 'connect to wallet'}</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+              <Nav.Link><Button variant="primary"><BsPlusCircle /> Create DAO</Button></Nav.Link>
+          </Nav.Item>
           {/* <Nav.Link href="/">Submit Proposal</Nav.Link> */}
         </Nav>
       </Container>
