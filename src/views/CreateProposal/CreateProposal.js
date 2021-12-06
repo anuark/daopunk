@@ -7,7 +7,6 @@ const CreateProposal = () => {
   const form = React.createRef();
 
   useEffect(() => {
-    
     form.current.addEventListener('submit', async(ev) => {
       ev.preventDefault();
       const targets = document.getElementById('targets').value;
@@ -76,6 +75,7 @@ const CreateProposal = () => {
               </Form.Group>
             </Col>
           </Row>
+          <br />
 
           <Button variant="primary" type="submit">
           Submit
