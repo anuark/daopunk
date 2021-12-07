@@ -3,7 +3,8 @@ import { Outlet } from 'react-router-dom';
 import React, { useEffect } from 'react';
 import axios from 'axios';
 
-const CastVote = () => {
+const CastVote = props => {
+  const { userAddress } = props;
   const form = React.createRef();
 
   useEffect(() => {
@@ -16,7 +17,7 @@ const CastVote = () => {
       if (support && !reject) voteBool = true;
       if (!support && reject) voteBool = false;
 
-      const res = await axios.post('/api/vote-prop', { id, voteBool });
+      const res = await axios.post('/api/vote-prop', { id, voteBool, addr1: userAddress });
 
       if (res.status === 200) {
         alert('Vote cast');

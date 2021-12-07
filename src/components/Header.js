@@ -6,10 +6,10 @@ import Logo from '../assets/logo_size.png';
 import { BsPlusCircle, BsFillLightningChargeFill } from 'react-icons/bs';
 import MetaMaskOnboarding from '@metamask/onboarding';
 
-const Header = () => {
+const Header = props => {
+  const { setUserAddress } = props;
   const [buttonText, setButtonText] = useState('Connect Wallet');
   const [connected, setConnected] = useState(false);
-  const [isDisabled, setDisabled] = useState(false);
   const [accounts, setAccounts] = useState([]);
   const onboarding = useRef();
 
@@ -20,6 +20,7 @@ const Header = () => {
 
     const handleNewAccounts = (newAccounts) => {
       setAccounts(newAccounts);
+      setUserAddress(newAccounts[0]);
     }
 
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
@@ -37,7 +38,6 @@ const Header = () => {
 
   useEffect(() => {
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-      console.log(accounts, 'accounts');
       if (accounts.length > 0) {
         setConnected(true);
         onboarding.current.stopOnboarding();
@@ -48,7 +48,6 @@ const Header = () => {
   }, [accounts]);
 
   const onClick = () => {
-      console.log(MetaMaskOnboarding.isMetaMaskInstalled());
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       window.ethereum
         .request({ method: 'eth_requestAccounts' })

@@ -35,6 +35,8 @@ describe("GovernorAlpha", function () {
     console.log(`${addr1}: ${balance}`);
   });
 
+  // voting with more than 1 person
+
   // air-drop
   // describe('air drop to listed accounts', () => {
   //   beforeEach(async () => {

@@ -1,10 +1,10 @@
 const { ethers } = require('hardhat');
 
 export default async function handler(req, res) {
-  const { id, voteBool } = req.body;
+  const { id, voteBool, addr1 } = req.body;
 
   // get msg.sender from metamask
-  const [addr1] = await ethers.provider.listAccounts();
+  // const [addr1] = await ethers.provider.listAccounts();
 
   // need Token and GovAlpha contract addresses & names in state of current DAO
   const governorAlphaName = "GovernorAlpha";

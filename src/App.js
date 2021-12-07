@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Container, Navbar } from 'react-bootstrap';
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
@@ -7,15 +7,17 @@ import { Dashboard, CreateDAO, CreateProposal, CastVote } from './views';
 import Header from './components/Header';
 
 function App() {
-  console.log('App.js is running');
+  const [userAddress, setUserAddress] = useState(null);
+  const [daoAddress, setDaoAddress] = useState(null);
+  
   return (
     <Container>
-      <Header />
+      <Header setUserAddress={setUserAddress} />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/create" element={<CreateDAO />} />
+        <Route path="/" element={<Dashboard userAddress={userAddress} />} />
+        <Route path="/create" element={<CreateDAO userAddress={userAddress} />} />
         <Route path="/propose" element={<CreateProposal />} />
-        <Route path="/vote" element={<CastVote />} />
+        <Route path="/vote" userAddress={userAddress} element={<CastVote />} />
       </Routes>
     </Container>
   );
