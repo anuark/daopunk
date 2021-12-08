@@ -22,6 +22,9 @@ const DaoDash = props => {
   // DAO address
   // token address
   // dao name
+
+  // Use the code below to list out Proposal History
+
   // const rows = [...Array(Math.ceil(daoList.length / 4))];
   // const productRows = rows.map((row, i) => daoList.slice(i * 4, i * 4 + 4));
   // const content = productRows.map((row, i) => (
@@ -37,10 +40,9 @@ const DaoDash = props => {
   //     }
   //   </Row>
   // ));
+  const content = ['prop4', 'prop3', 'prop2', 'prop1'];
 
   return (
-    // <Container> { content } </Container>
-    
      <div>
       <Row>
         <h3>[Dao-name] Dashboard </h3>
@@ -70,15 +72,8 @@ const DaoDash = props => {
       </Row>
       <br />
       <Row>
-        <h4>Last 5 props</h4>
-        <ul>
-          <li>past prop 32</li>
-          <li>past prop 31</li>
-          <li>past prop 30</li>
-          <li>past prop 29</li>
-          <li>past prop 28</li>
-          <li>...</li>
-        </ul>
+        <h4>Proposal History: (last 5 props)</h4>
+        <Container> { content } </Container>
       </Row>
     </div>
   );
