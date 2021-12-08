@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
   // const Factory = new ContractFactory(abi, byteCode);
   const Token = await ethers.getContractFactory(abiTk, bytecodeTk);
-  const token = await Token.deploy(addr1, tokenName, tokenSymbol, hasQuadraticVoting);
+  const token = await Token.deploy(addr1, tokenName, tokenSymbol, tokenCap, hasQuadraticVoting);
   console.log(`TOKEN CONTRACT: ${token.address}`);
 
   // add nonce, nonce + addr1 = GovernorAddr

@@ -16,7 +16,7 @@ contract Token {
     uint8 public constant decimals = 18;
 
     /// @notice Total number of tokens in circulation
-    uint public constant totalSupply = 10000000e18; // 10 million Comp
+    uint public totalSupply; // 10 million Comp
 
     mapping (address => mapping (address => uint96)) internal allowances;
 
@@ -62,10 +62,11 @@ contract Token {
      * @notice Construct a new Comp token
      * @param account The initial account to grant all the tokens
      */
-    constructor(address account, string memory _name, string memory _symbol, bool _qv) public {
+    constructor(address account, string memory _name, string memory _symbol, uint _totalSupply, bool _qv) public {
         balances[account] = uint96(totalSupply);
         name = _name;
         symbol = _symbol;
+        totalSupply = _totalSupply * 1000000000000000000;
         qv = _qv;
         emit Transfer(address(0), account, totalSupply, qv);
     }

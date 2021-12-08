@@ -5,6 +5,19 @@ const { getContractAddress } = ethers.utils;
 
 describe("GovernorAlpha", function () {
   const delay = 2 * 24 * 60 * 60;
+
+  // Create DAO interface state vars
+  const hasQuadraticVoting, name, ownerAddress, tokenCap, tokenName, tokenSymbol;
+  hasQuadraticVoting = true;
+  name = 'TestDAO';
+  
+
+  // Create Prop interface state vars
+
+
+  // Vote on Prop interface state vars
+
+
   let addr1, govAlpha, token, example;
   beforeEach(async () => {
     [addr1] = await ethers.provider.listAccounts();

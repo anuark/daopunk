@@ -14,10 +14,12 @@ const CreateDao = () => {
           setLoading(true);
           console.log('creating dao');
           ev.preventDefault();
+          const tknCap = document.getElementById('tokenCap').value;
+
           const name = document.getElementById('name').value;
           const owner = document.getElementById('owner').value;
           const tokenName = document.getElementById('tokenName').value;
-          const tokenCap = document.getElementById('tokenCap').value;
+          const tokenCap = tknCap > 100 ? tknCap : 10000000;
           const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
           const tokenSymbol = document.getElementById('tokenSymbol').value;
 
