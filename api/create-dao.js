@@ -1,18 +1,19 @@
-// require('dotenv').config({debug: true});
+require('./_config');
 const { ethers } = require('hardhat');
 const { ContractFactory } = ethers;
 const fs = require('fs');
 const { compile } = require('./_util');
+const mongoose = require('mongoose');
 
 // 1. figure how to run hardhat task when compile is completed
 // 2. solcjs to compile. get abi and bytecode
 export default async function handler(req, res) {
-  const { hasQuadraticVoting, name, owner, tokenCap, tokenName, tokenSymbol } = req.body;
+  const { hasQuadraticVoting, name, ownerAddress, tokenCap, tokenName, tokenSymbol } = req.body;
   // deployer address
   const [addr1] = await ethers.provider.listAccounts();
   console.log(`--- \n\nADDR1: ${addr1}`);
 
-  // const { hasQuadraticVoting, name: daoName, owner, tokenCap, tokenName } = req.body;
+  // const { hasQuadraticVoting, name: daoName, ownerAddress, tokenCap, tokenName } = req.body;
   const fileBufToken = fs.readFileSync('contracts/Token.sol');
   const [abiTk, bytecodeTk] = compile(fileBufToken.toString('utf8'), 'Token.sol');
 
@@ -42,6 +43,17 @@ export default async function handler(req, res) {
   const GovernorAlpha = await ethers.getContractFactory(abiGv, byteCodeGv);
   const govContract = await GovernorAlpha.deploy(timelock.address, token.address, addr1, name);
   console.log(`GOVERNOR CONTRACT: ${govContract.address}`);
+  
+  const Dao = mongoose.model('Dao');
+  const dao = new Dao;
+  dao.name = name;
+  dao.ownerAddress = ownerAddress;
+  dao.contractAddress = govContract.address;
+  dao.timelockAddress = timelock.address;
+  dao.tokenName = tokenName;
+  dao.tokenSymbol = tokenSymbol;
+  dao.tokenAddress = token.address;
+  await dao.save();
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');

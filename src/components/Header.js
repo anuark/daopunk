@@ -21,7 +21,7 @@ const Header = props => {
     const handleNewAccounts = (newAccounts) => {
       setAccounts(newAccounts);
       setUserAddress(newAccounts[0]);
-    }
+    };
 
     if (MetaMaskOnboarding.isMetaMaskInstalled()) {
       window.ethereum
@@ -31,7 +31,7 @@ const Header = props => {
       return () => {
         try {
           window.ethereum.off('accountsChanged', handleNewAccounts);
-        } catch(_) {}
+        } catch (_) {}
       };
     }
   }, []);
@@ -67,23 +67,23 @@ const Header = props => {
             width="144"
             height="96"
             className="d-inline-block align-top"
-            style={{marginLeft: '42px'}}
+            style={{ marginLeft: '42px' }}
           />{' '}
         </Navbar.Brand>
 
         <Nav className="justify-content-end">
           <Nav.Item>
-              <NavDropdown title="Rinkeby" id="nav-dropdown" className="me-3">
-                <NavDropdown.Item  eventKey="4.1">Ethereum mainnet</NavDropdown.Item>
-                <NavDropdown.Item>Ropsten</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.3">Localhost</NavDropdown.Item>
-              </NavDropdown>
+            <NavDropdown title="Rinkeby" id="nav-dropdown" className="me-3">
+              <NavDropdown.Item eventKey="4.1">Ethereum mainnet</NavDropdown.Item>
+              <NavDropdown.Item>Ropsten</NavDropdown.Item>
+              <NavDropdown.Item eventKey="4.3">Localhost</NavDropdown.Item>
+            </NavDropdown>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link role={connected ? "text" : "button"} className={`me-3 pt-2  ${connected ? 'text-muted' : 'text-primary pe-auto'}`} onClick={onClick}><BsFillLightningChargeFill />{connected ? 'connected' : 'connect to wallet'}</Nav.Link>
+            <Nav.Link role={connected ? 'text' : 'button'} className={`me-3 pt-2  ${connected ? 'text-muted' : 'text-primary pe-auto'}`} onClick={onClick}><BsFillLightningChargeFill />{connected ? 'connected' : 'connect to wallet'}</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-              <Nav.Link><Button variant="primary"><BsPlusCircle /> Create DAO</Button></Nav.Link>
+            <Nav.Link><Button variant="primary"><BsPlusCircle /> Create DAO</Button></Nav.Link>
           </Nav.Item>
           {/* <Nav.Link href="/">Submit Proposal</Nav.Link> */}
         </Nav>

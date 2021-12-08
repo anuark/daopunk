@@ -5,11 +5,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Dashboard, CreateDAO, CreateProposal, CastVote } from './views';
 import Header from './components/Header';
+import mongoose from 'mongoose';
 
 function App() {
   const [userAddress, setUserAddress] = useState(null);
   const [daoAddress, setDaoAddress] = useState(null);
-  
+
   return (
     <Container>
       <Header setUserAddress={setUserAddress} />
