@@ -83,9 +83,10 @@ const Header = props => {
             <Nav.Link role={connected ? 'text' : 'button'} className={`me-3 pt-2  ${connected ? 'text-muted' : 'text-primary pe-auto'}`} onClick={onClick}><BsFillLightningChargeFill />{connected ? 'connected' : 'connect to wallet'}</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link><Button variant="primary"><BsPlusCircle /> Create DAO</Button></Nav.Link>
+            <Link to="/create">
+              <Nav.Item><Button variant="primary"><BsPlusCircle /> Create DAO</Button></Nav.Item>
+            </Link>
           </Nav.Item>
-          {/* <Nav.Link href="/">Submit Proposal</Nav.Link> */}
         </Nav>
       </Container>
     </Navbar>
