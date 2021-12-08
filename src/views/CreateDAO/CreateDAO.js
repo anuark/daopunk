@@ -1,36 +1,43 @@
 import { Button, Form, Row, Container, Col } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CreateDao = () => {
   const form = React.createRef();
 
+  const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
-    //
-    form.current.addEventListener('submit', async(ev) => {
-      ev.preventDefault();
-      const name = document.getElementById('name').value;
-      const owner = document.getElementById('owner').value;
-      const tokenName = document.getElementById('tokenName').value;
-      const tokenCap = document.getElementById('tokenCap').value;
-      const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
-      const tokenSymbol = document.getElementById('tokenSymbol').value;
+      form.current.addEventListener('submit', async(ev) => {
+        if (!isLoading) {
+          setLoading(true);
+          console.log('creating dao');
+          ev.preventDefault();
+          const name = document.getElementById('name').value;
+          const owner = document.getElementById('owner').value;
+          const tokenName = document.getElementById('tokenName').value;
+          const tokenCap = document.getElementById('tokenCap').value;
+          const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
+          const tokenSymbol = document.getElementById('tokenSymbol').value;
 
-      const res = await axios.post('/api/create-dao', {
-        name,
-        owner,
-        tokenName,
-        tokenCap,
-        hasQuadraticVoting,
-        tokenSymbol
+          const res = await axios.post('/api/create-dao', {
+            name,
+            owner,
+            tokenName,
+            tokenCap,
+            hasQuadraticVoting,
+            tokenSymbol
+          });
+
+          if (res.status === 200) {
+            alert('DAO created');
+            setLoading(false);
+            location.pathname = "/daoId";
+          }
+        }
       });
-
-      if (res.status === 200) {
-        alert('DAO created');
-      }
-    });
-  }, []);
+  }, [isLoading]);
 
   return (
     <div>
@@ -84,7 +91,7 @@ const CreateDao = () => {
           </Form.Group>
 
           <br />
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={isLoading}>
           Submit
           </Button>
         </Container>

@@ -1,33 +1,41 @@
 import { Button, Form, Row, Container, Col } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CreateProposal = () => {
   const form = React.createRef();
 
+  const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
     form.current.addEventListener('submit', async(ev) => {
-      ev.preventDefault();
-      const targets = document.getElementById('targets').value;
-      const values = document.getElementById('values').value;
-      const callcontracts = document.getElementById('callcontracts').value;
-      const calldatas = document.getElementById('calldatas').value;
-      const description = document.getElementById('description').value;
+      if (!isLoading) {          
+        setLoading(true);
+        console.log('creating prop');
+        ev.preventDefault();
+        const targets = document.getElementById('targets').value;
+        const values = document.getElementById('values').value;
+        const callcontracts = document.getElementById('callcontracts').value;
+        const calldatas = document.getElementById('calldatas').value;
+        const description = document.getElementById('description').value;
 
-      const res = await axios.post('/api/create-prop', {
-        targets,
-        values,
-        callcontracts,
-        calldatas,
-        description
-      });
+        const res = await axios.post('/api/create-prop', {
+          targets,
+          values,
+          callcontracts,
+          calldatas,
+          description
+        });
 
-      if (res.status === 200) {
-        alert('Prop created');
+        if (res.status === 200) {
+          alert('Prop created');
+          setLoading(false);
+          location.pathname = "/daoId";
+        }
       }
     });
-  }, []);
+  }, [isLoading]);
 
   return (
     <div>
@@ -77,7 +85,7 @@ const CreateProposal = () => {
           </Row>
           <br />
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={isLoading}>
           Submit
           </Button>
         </Container>

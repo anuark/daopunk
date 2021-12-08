@@ -1,29 +1,36 @@
 import { Button, Form, Row, Container, Col } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CastVote = props => {
   const { userAddress } = props;
   const form = React.createRef();
 
+  const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
     form.current.addEventListener('submit', async(ev) => {
-      ev.preventDefault();
-      const id = document.getElementById('id').value;
-      const support = document.getElementById('support').value;
-      const reject = document.getElementById('reject').value;
+      if (!isLoading) {
+        setLoading(true);
+        console.log('casting vote');
+        ev.preventDefault();
+        const id = document.getElementById('id').value;
+        const support = document.getElementById('support').value;
+        const reject = document.getElementById('reject').value;
 
-      if (support && !reject) voteBool = true;
-      if (!support && reject) voteBool = false;
+        const voteBool = support ? support : reject;
 
-      const res = await axios.post('/api/vote-prop', { id, voteBool, addr1: userAddress });
+        const res = await axios.post('/api/vote-prop', { id, voteBool, addr1: userAddress });
 
-      if (res.status === 200) {
-        alert('Vote cast');
+        if (res.status === 200) {
+          alert('Vote cast');
+          setLoading(false);
+          location.pathname = "/daoId";
+        }
       }
     });
-  }, []);
+  }, [isLoading]);
 
   return (
     <div>
@@ -48,7 +55,7 @@ const CastVote = props => {
           </Row>
           <br />
 
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={isLoading}>
           Submit
           </Button>
         </Container>
