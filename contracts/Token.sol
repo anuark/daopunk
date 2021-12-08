@@ -9,6 +9,9 @@ contract Token {
     /// @notice EIP-20 token symbol for this token
     string public symbol = "CFD";
 
+    // for Quadratically weighted voting;
+    bool public qv;
+
     /// @notice EIP-20 token decimals for this token
     uint8 public constant decimals = 18;
 
@@ -50,7 +53,7 @@ contract Token {
     event DelegateVotesChanged(address indexed delegate, uint previousBalance, uint newBalance);
 
     /// @notice The standard EIP-20 transfer event
-    event Transfer(address indexed from, address indexed to, uint256 amount);
+    event Transfer(address indexed from, address indexed to, uint256 amount, bool qv);
 
     /// @notice The standard EIP-20 approval event
     event Approval(address indexed owner, address indexed spender, uint256 amount);
@@ -59,11 +62,12 @@ contract Token {
      * @notice Construct a new Comp token
      * @param account The initial account to grant all the tokens
      */
-    constructor(address account, string memory _name, string memory _symbol) public {
+    constructor(address account, string memory _name, string memory _symbol, bool _qv) public {
         balances[account] = uint96(totalSupply);
         name = _name;
         symbol = _symbol;
-        emit Transfer(address(0), account, totalSupply);
+        qv = _qv;
+        emit Transfer(address(0), account, totalSupply, qv);
     }
 
     /**
@@ -181,13 +185,18 @@ contract Token {
         return nCheckpoints > 0 ? checkpoints[account][nCheckpoints - 1].votes : 0;
     }
 
-    function getPriorVotes(address account, uint blockNumber) public view returns(uint96 v) {
-        uint96 votes = _getPriorVotes(account, blockNumber);
-        uint96 z = (votes + 1) / 2;
-        v = z;
-        while (z < v) {
-            v = z;
-            z = (votes / z + z) / 2;
+    function getPriorVotes(address account, uint blockNumber) public view returns(uint96) {
+        if (qv) {
+            uint96 votes = _getPriorVotes(account, blockNumber);
+            uint96 z = (votes + 1) / 2;
+            uint96 v = votes;
+            while (z < v) {
+                v = z;
+                z = (votes / z + z) / 2;
+            }
+            return v;
+        } else {
+            return _getPriorVotes(account, blockNumber);
         }
     }
 
@@ -248,7 +257,7 @@ contract Token {
 
         balances[src] = sub96(balances[src], amount, "Comp::_transferTokens: transfer amount exceeds balance");
         balances[dst] = add96(balances[dst], amount, "Comp::_transferTokens: transfer amount overflows");
-        emit Transfer(src, dst, amount);
+        emit Transfer(src, dst, amount, qv);
 
         _moveDelegates(delegates[src], delegates[dst], amount);
     }
