@@ -46,23 +46,26 @@ const DaoDash = props => {
         <h3>[Dao-name] Dashboard </h3>
         <Nav className="justify-content-center">
           <Link to="/propose" >
-            <Nav.Item ><Button className="text-light bg-dark" variant="primary"><BsPlusCircle /> Create Proposal</Button></Nav.Item>
+            <Nav.Item ><Button className="text-light bg-primary" variant="primary"><BsPlusCircle /> Create Proposal</Button></Nav.Item>
           </Link>
         </Nav>
       </Row>
       <br />
       <Row className="text-light bg-secondary rounded p-4">
-        <Col>
-          <h4>Current Prop</h4>
+        <Nav className="justify-content-center"><h4>Current Prop</h4></Nav>
+        <Col >
           <p>Description:</p>
           <p>Value:</p>
           <p>Target Address:</p>
           <p>Method Call:</p>
         </Col>
-        <Col>
-          <Link to="/vote">
-            <Button className="text-light bg-dark" variant="primary"><BsBookmarkCheck /> Vote on Prop: #</Button>
-          </Link>
+        <Col className="col-3">
+         
+          <Nav className="justify-content-center">
+            <Link to="/vote">
+              <Button className="text-dark bg-light justify-content-center" variant="primary"><BsBookmarkCheck /> Vote on Prop: #</Button>
+            </Link>
+          </Nav>
         </Col>
       </Row>
       <br />

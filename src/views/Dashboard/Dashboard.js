@@ -16,6 +16,20 @@ const Dashboard = props => {
     });
   }, []);
 
+  /* FROM API/MODEL/DAO
+
+    const Dao = new Schema({
+        name: String,
+        ownerAddress: String,
+        contractAddress: String,
+        tokenAddress: String,
+        timelockAddress: String,
+        tokenName: String,
+        tokenSymbol: String
+    });
+
+*/
+
   // 4 Col per Row
   // DAO address
   // token address
@@ -26,9 +40,10 @@ const Dashboard = props => {
     <Row key={i}>
       { row.map((val, i) => (
         <Col className='dao-item' key={i}>
-          <Link to="#">
+          <Link to="/daoId">
           <h4 className="text-primary">{val.name}</h4>
           <p><span className="text-muted">Transactions</span> <br />{val.transactions}</p>
+
           </Link>
         </Col>
       ))
