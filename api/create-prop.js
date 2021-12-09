@@ -10,30 +10,34 @@ export default async function handler(req, res) {
   const fileBuf = fs.readFileSync('contracts/Example.sol');
   const [exAbi, exBytecode] = compile(fileBuf.toString('utf8'), 'Example.sol');
 
-  // const Example = await ethers.getContractFactory(exAbi, exBytecode);
-  const Example = await ethers.getContractAt(exAbi, exBytecode); //abi, address
+  const Example = await ethers.getContractFactory(exAbi, exBytecode);
+  // const Example = await ethers.getContractAt(exAbi, exBytecode); //abi, address
   const example = await Example.deploy();
   await example.deployed();
 
   // call contract and call data from user input
   // const callContractName = `"${callcontracts}"`;
   // const callContractAddr = `"${targets}"`;
+
   // const Dao = mongoose.model('Dao');
   // const dao = Dao.find().where({ tokenAddress });
 
   // delegate msg.sender w/ Token contract
-  const token = await ethers.getContractAt(tokenAbi, tokenAddress);
+  // const token = await ethers.getContractAt(tokenAbi, tokenAddress);
+  const accounts = await ethers.getSigners();
+  const token = new ethers.Contract(tokenAddress, tokenAbi, accounts[0]);
   await token.delegate(userAddress);
-  const callContract = await ethers.getContractAt(exAbi, example.address);
+
+  // const callContract = await ethers.getContractAt(exAbi, example.address);
 
   // format call data
-  const calldata = callContract.interface.encodeFunctionData(calldatas);
-
+  const calldata = [example.interface.encodeFunctionData("changeMsg",["Anarchy!"])];
+  
   // propose proposal w/ GovernorAlpha contract
-  const govAlpha = await ethers.getContractAt(contractAbi, contractAddress);
-  // govAlpha.on('');
+  const govAlpha = new ethers.Contract(contractAddress, contractAbi, accounts[0]);
+
   // const tx = await govAlpha.propose([targets], [values], [calldata], description);
-  const tx = await govAlpha.propose(["example.address"], ["0"], [calldata], description);
+  const tx = await govAlpha.propose([`${example.address}`], [values], calldata, description);
   const receipt = await tx.wait();
 
   // store receipt on mongodb

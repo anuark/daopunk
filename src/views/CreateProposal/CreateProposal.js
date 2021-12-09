@@ -23,7 +23,6 @@ const CreateProposal = (props) => {
         const callcontracts = document.getElementById('callcontracts').value;
         const calldatas = document.getElementById('calldatas').value;
         const description = document.getElementById('description').value;
-        const userAddress = document.getElementById('description').value;
 
         const res = await axios.post('/api/create-prop', {
           targets,
@@ -43,8 +42,9 @@ const CreateProposal = (props) => {
         if (res.status === 200) {
           alert('Prop created');
           setLoading(false);
-          navigate('/dao/'.currentDao.contractAddress);
+          navigate(`/dao/${currentDao.contractAddress}`);
         }
+        // navigate(`/dao/${res.data.contractAddress}`);
       }
     });
   }, [isLoading]);

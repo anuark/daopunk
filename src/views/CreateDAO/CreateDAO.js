@@ -43,7 +43,6 @@ const CreateDao = (props) => {
           await setCurrentDao(res.data);
           console.log(res.data, 'after setDao');
           navigate(`/dao/${res.data.contractAddress}`);
-          // location.pathname = '/dao/' + res.data.contractAddress;
         }
       }
     });
