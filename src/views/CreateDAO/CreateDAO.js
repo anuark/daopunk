@@ -1,10 +1,11 @@
 import { Button, Form, Row, Container, Col } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CreateDao = (props) => {
   const form = React.createRef();
+  const navigate = useNavigate();
   const { userAddress, currentDao, setCurrentDao } = props;
 
   const [isLoading, setLoading] = useState(false);
@@ -32,14 +33,17 @@ const CreateDao = (props) => {
           tokenName,
           tokenCap,
           hasQuadraticVoting,
-          tokenSymbol
+          tokenSymbol,
+          userAddress
         });
 
         if (res.status === 200) {
           alert('DAO created');
           setLoading(false);
-          setCurrentDao(res.data);
-          location.pathname = '/dao/' + res.data.contractAddress;
+          await setCurrentDao(res.data);
+          console.log(res.data, 'after setDao');
+          navigate(`/dao/${res.data.contractAddress}`);
+          // location.pathname = '/dao/' + res.data.contractAddress;
         }
       }
     });

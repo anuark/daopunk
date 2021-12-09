@@ -1,24 +1,27 @@
 const { ethers } = require('hardhat');
+const { compile } = require('./_util');
 
 export default async function handler(req, res) {
-  const { targets, values, callcontracts, calldatas, description } = req.body;
+  const { targets, values, callcontracts, calldatas, description, tokenAddress, tokenName, userAddress, contractAddress, contractName } = req.body;
 
-  // get msg.sender from metamask
-  const [addr1] = await ethers.provider.listAccounts();
+  // Compile and deploy Example.js ?
+  // const fileBufToken = fs.readFileSync('contracts/Token.sol');
+  // const [abiTk, bytecodeTk] = compile(fileBufToken.toString('utf8'), 'Example.sol');
 
   // need Token and GovAlpha contract addresses & names in state of current DAO
-  const governorAlphaName = "GovernorAlpha";
-  const govAlphaAddr = "0x1505c74f24DaDB71fa27b00081aEE495FbF6e08E";
-  const tokenName = "Token";
-  const tokenAddr = "0xb2A0381Eeeca8849128C583bf8a508D549628CDC";
+  const governorAlphaName = contractName;
+  const govAlphaAddr = contractAddress;
 
   // call contract and call data from user input
   const callContractName = `"${callcontracts}"`;
   const callContractAddr = `"${targets}"`;
 
+  const Dao = mongoose.models('Dao');
+  const dao = Dao.find().where({ tokenAddress });
+
   // delegate msg.sender w/ Token contract
-  const token = await ethers.getContractAt(tokenName, tokenAddr);
-  await token.delegate(addr1);
+  const token = await ethers.getContractAt(, tokenAddress);
+  await token.delegate(userAddress);
   const callContract = await ethers.getContractAt(callContractName, callContractAddr);
 
   // format call data
@@ -26,13 +29,12 @@ export default async function handler(req, res) {
 
   // propose proposal w/ GovernorAlpha contract
   const govAlpha = await ethers.getContractAt(governorAlphaName, govAlphaAddr);
-  govAlpha.on('');
+  // govAlpha.on('');
   const tx = await govAlpha.propose([targets], [values], [calldata], description);
-  // const receipt = await tx.wait();
+  const receipt = await tx.wait();
 
   // store receipt on mongodb
-
-  console.log(receipt);
+  console.log(receipt, 'receipt');
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');

@@ -1,12 +1,12 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/Example.sol": {
-      "lastModificationDate": 1638568870203,
-      "contentHash": "db630370e9fd2e4fd44ff7145c7e3565",
+    "/root/code/js/daopunk/contracts/Example.sol": {
+      "lastModificationDate": 1639010270095,
+      "contentHash": "d260e04379281be4af1c375443ff0443",
       "sourceName": "contracts/Example.sol",
       "solcConfig": {
-        "version": "0.7.3",
+        "version": "0.8.10",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -30,18 +30,18 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.7.3"
+        "0.8.10"
       ],
       "artifacts": [
         "Example"
       ]
     },
-    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/GovernorAlpha.sol": {
-      "lastModificationDate": 1638576422306,
-      "contentHash": "da380a7abead5df6d7022c03f3fc0aad",
+    "/root/code/js/daopunk/contracts/GovernorAlpha.sol": {
+      "lastModificationDate": 1639003999665,
+      "contentHash": "7c7485ad6e644b83003d810e5496b970",
       "sourceName": "contracts/GovernorAlpha.sol",
       "solcConfig": {
-        "version": "0.7.3",
+        "version": "0.8.10",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -65,7 +65,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.7.3"
+        "0.8.10"
       ],
       "artifacts": [
         "CompInterface",
@@ -73,12 +73,12 @@
         "TimelockInterface"
       ]
     },
-    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/SafeMath.sol": {
-      "lastModificationDate": 1638568870261,
-      "contentHash": "51e3bce6f64c8cbdb9f6a6c4d8ccaa1b",
-      "sourceName": "contracts/SafeMath.sol",
+    "/root/code/js/daopunk/contracts/Timelock.sol": {
+      "lastModificationDate": 1638740482160,
+      "contentHash": "c33a78cd6261a5e11d4ef9b738dc9b8f",
+      "sourceName": "contracts/Timelock.sol",
       "solcConfig": {
-        "version": "0.7.3",
+        "version": "0.8.10",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -102,55 +102,18 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.7.3"
-      ],
-      "artifacts": [
-        "SafeMath"
-      ]
-    },
-    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/Timelock.sol": {
-      "lastModificationDate": 1638576107062,
-      "contentHash": "f235cc6d47c0163f0b9e29e9503880a4",
-      "sourceName": "contracts/Timelock.sol",
-      "solcConfig": {
-        "version": "0.7.3",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./SafeMath.sol"
-      ],
-      "versionPragmas": [
-        "^0.7.3"
+        "0.8.10"
       ],
       "artifacts": [
         "Timelock"
       ]
     },
-    "/Users/hunterking/Desktop/QV-dapp/clone/daopunk/contracts/Token.sol": {
-      "lastModificationDate": 1638571417374,
-      "contentHash": "559d96da3cfc254030aab638c13d2a2c",
+    "/root/code/js/daopunk/contracts/Token.sol": {
+      "lastModificationDate": 1639003995825,
+      "contentHash": "adbdfd9f9a326d849e78d92b4e799dde",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
-        "version": "0.7.3",
+        "version": "0.8.10",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -174,7 +137,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.7.3"
+        "0.8.10"
       ],
       "artifacts": [
         "Token"

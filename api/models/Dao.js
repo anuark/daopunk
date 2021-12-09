@@ -11,7 +11,9 @@ const Dao = new Schema({
   timelockAddress: String,
   tokenName: String,
   tokenSymbol: String,
-  proposalHistory: Array
+  proposalHistory: Array,
+  tokenAbi: String,
+  contractAbi: String
 });
 
 mongoose.model('Dao', Dao);

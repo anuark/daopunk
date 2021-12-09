@@ -4,7 +4,6 @@
   "sourceName": "contracts/GovernorAlpha.sol",
   "abi": [
     {
-      "constant": true,
       "inputs": [
         {
           "internalType": "address",
@@ -25,7 +24,6 @@
           "type": "uint96"
         }
       ],
-      "payable": false,
       "stateMutability": "view",
       "type": "function"
     }

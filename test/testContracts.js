@@ -7,7 +7,7 @@ describe("GovernorAlpha", function () {
   const delay = 2 * 24 * 60 * 60;
 
   // Create DAO interface state vars
-  const hasQuadraticVoting, name, ownerAddress, tokenCap, tokenName, tokenSymbol;
+  let hasQuadraticVoting, name, ownerAddress, tokenCap, tokenName, tokenSymbol;
   hasQuadraticVoting = true;
   name = 'TestDAO';
   
@@ -40,6 +40,7 @@ describe("GovernorAlpha", function () {
     const Example = await ethers.getContractFactory("Example");
     example = await Example.deploy();
     await example.deployed();
+    console.log('example address', example.address);
   });
 
   it("should mint tokens to the address 1", async function () {

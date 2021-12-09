@@ -6,18 +6,15 @@ import { BsPlusCircle, BsBookmarkCheck } from 'react-icons/bs';
 import './DaoDash.css';
 
 const DaoDash = props => {
-  const { userAddress, currentDao } = props;
-  console.log(currentDao);
+  const { userAddress, currentDao, setCurrentDao } = props;
   // const [daoList, setDaoList] = useState([]);
   const [daoId] = useState([]);
 
   // console.log(userAddress, 'userAddress');
 
-  // useEffect(() => {
-  //   instance.get(`/${daoId}`).then(({ data }) => {
-  //     setDaoList(data);
-  //   });
-  // }, []);
+  useEffect(() => {
+    console.log(currentDao, 'currentDao');
+  }, [currentDao]);
 
   // 4 Col per Row
   // DAO address

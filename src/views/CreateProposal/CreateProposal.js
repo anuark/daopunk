@@ -1,11 +1,12 @@
 import { Button, Form, Row, Container, Col } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CreateProposal = (props) => {
   const form = React.createRef();
   const { currentDao, userAddress } = props;
+  const navigate = useNavigate();
   console.log(currentDao, 'currentDao');
   console.log(userAddress, 'userAddress');
 
@@ -40,7 +41,7 @@ const CreateProposal = (props) => {
         if (res.status === 200) {
           alert('Prop created');
           setLoading(false);
-          location.pathname = '/dao/'.currentDao.contractAddress;
+          navigate('/dao/'.currentDao.contractAddress);
         }
       }
     });
@@ -48,7 +49,7 @@ const CreateProposal = (props) => {
 
   return (
     <div>
-      <h1>Create Proposal</h1>
+      <h1>Create Proposal for {currentDao.name}</h1>
       <Form method="post" ref={form}>
         <Container fluid>
           <Row>
