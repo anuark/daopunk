@@ -1,21 +1,13 @@
 const { ethers } = require('hardhat');
 
 export default async function handler(req, res) {
-  const { id, voteBool, addr1 } = req.body;
+  const { id, voteBool, userAddress, tokenAddress, tokenAbi, contractAddress, contractAbi } = req.body;
 
-  // get msg.sender from metamask
-  // const [addr1] = await ethers.provider.listAccounts();
+  const accounts = await ethers.getSigners();
+  const token = new ethers.Contract(tokenAddress, tokenAbi, accounts[0]);
+  await token.delegate(userAddress);
 
-  // need Token and GovAlpha contract addresses & names in state of current DAO
-  const governorAlphaName = "GovernorAlpha";
-  const govAlphaAddr = "0x1505c74f24DaDB71fa27b00081aEE495FbF6e08E";
-  const tokenName = "Token";
-  const tokenAddr = "0xb2A0381Eeeca8849128C583bf8a508D549628CDC";
-
-  const token = await ethers.getContractAt(tokenName, tokenAddr);
-  await token.delegate(addr1);
-
-  const govAlpha = await ethers.getContractAt(governorAlphaName, govAlphaAddr);
+  const govAlpha = new ethers.Contract(contractAddress, contractAbi, accounts[0]);
   await govAlpha.castVote(id, voteBool);
 
   res.statusCode = 200;

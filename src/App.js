@@ -19,7 +19,7 @@ function App() {
         <Route path="/dao/:contractAddress" element={<DaoDash currentDao={currentDao} userAddress={userAddress} setCurrentDao={setCurrentDao} />} />
         <Route path="/create" element={<CreateDAO userAddress={userAddress} setCurrentDao={setCurrentDao} currentDao={currentDao} />} />
         <Route path="/propose" element={<CreateProposal currentDao={currentDao} userAddress={userAddress}/>} />
-        <Route path="/vote" userAddress={userAddress} element={<CastVote />} />
+        <Route path="/vote" element={<CastVote userAddress={userAddress} currentDao={currentDao} />} />
       </Routes>
     </Container>
   );

@@ -1,10 +1,11 @@
 import { Button, Form, Row, Container, Col } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const CastVote = props => {
-  const { userAddress } = props;
+  const { currentDao, userAddress } = props;
+  const navigate = useNavigate();
   const form = React.createRef();
 
   const [isLoading, setLoading] = useState(false);
@@ -21,12 +22,20 @@ const CastVote = props => {
 
         const voteBool = support ? support : reject;
 
-        const res = await axios.post('/api/vote-prop', { id, voteBool, addr1: userAddress });
+        const res = await axios.post('/api/vote-prop', { 
+          id,
+          voteBool,
+          userAddress,
+          contractAddress: currentDao.contractAddress,
+          contractAbi: currentDao.contractAbi,
+          tokenAddress: currentDao.tokenAddress,
+          tokenAbi: currentDao.tokenAbi
+         });
 
         if (res.status === 200) {
           alert('Vote cast');
           setLoading(false);
-          location.pathname = "/daoId";
+          navigate(`/dao/${currentDao.contractAddress}`);
         }
       }
     });

@@ -27,7 +27,6 @@ export default async function handler(req, res) {
   // const token = await ethers.getContractAt(tokenAbi, tokenAddress);
   const accounts = await ethers.getSigners();
   const token = new ethers.Contract(tokenAddress, tokenAbi, accounts[0]);
-
   await token.delegate(userAddress);
 
   // const callContract = await ethers.getContractAt(exAbi, example.address);
@@ -43,7 +42,7 @@ export default async function handler(req, res) {
   const receipt = await tx.wait();
 
   // store receipt on mongodb
-  // console.log(receipt, 'receipt');
+  console.log(receipt, 'receipt');
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
