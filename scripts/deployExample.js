@@ -42,6 +42,9 @@ const compile = (fileBuf, name) => {
   case 'GovernorAlpha.sol':
     res = [output.contracts.name.GovernorAlpha.abi, output.contracts.name.GovernorAlpha.evm.bytecode];
     break;
+  case 'Example.sol':
+      res = [output.contracts.name.Example.abi, output.contracts.name.Example.evm.bytecode];
+      break;
   }
 
   return res;
@@ -52,7 +55,7 @@ async function main() {
   const [abi, bytecode] = compile(fileBuf.toString('utf8'), 'Example.sol');
 
   const Example = await ethers.getContractFactory(abi, bytecode);
-  let example = await Example.deploy();
+  const example = await Example.deploy();
   await example.deployed();
 
   console.log({ example: example.address });
