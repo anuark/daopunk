@@ -46,6 +46,7 @@ const CastVote = props => {
       <h1>Cast Proposal Vote</h1>
       <Form method="post" ref={form}>
         <Container fluid>
+          <br/>
           <Row>
             <Col>
               <Form.Group controlId="id">
@@ -69,7 +70,7 @@ const CastVote = props => {
           </Button>
         </Container>
       </Form>
-
+      <br /><br />
       <Outlet />
     </div>
   );

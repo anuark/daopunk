@@ -53,6 +53,7 @@ const CreateDao = (props) => {
       <h1>Create DAO</h1>
       <Form method="post" ref={form}>
         <Container fluid>
+          <br/>
           <Row>
             <Col>
               <Form.Group controlId="name">
@@ -105,7 +106,7 @@ const CreateDao = (props) => {
           </Button>
         </Container>
       </Form>
-
+      <br /><br />
       <Outlet />
     </div>
   );

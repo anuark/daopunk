@@ -4,7 +4,7 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 
 export default async function handler(req, res) {
-  const { targets, values, callcontracts, calldatas, description, tokenAddress, tokenName, tokenAbi, userAddress, contractAddress, contractName, contractAbi } = req.body;
+  const { targets, values, callcontracts, calldatas, description, tokenAddress, tokenAbi, userAddress, contractAddress, contractAbi } = req.body;
 
   // Compile and deploy Example.js ?
   const fileBuf = fs.readFileSync('contracts/Example.sol');

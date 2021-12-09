@@ -11,7 +11,6 @@ describe("GovernorAlpha", function () {
   hasQuadraticVoting = true;
   name = 'TestDAO';
   
-
   // Create Prop interface state vars
 
 

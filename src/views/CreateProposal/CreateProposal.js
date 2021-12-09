@@ -20,22 +20,19 @@ const CreateProposal = (props) => {
         ev.preventDefault();
         const targets = document.getElementById('targets').value;
         const values = document.getElementById('values').value;
-        const callcontracts = document.getElementById('callcontracts').value;
+        // const callcontracts = document.getElementById('callcontracts').value;
         const calldatas = document.getElementById('calldatas').value;
         const description = document.getElementById('description').value;
 
         const res = await axios.post('/api/create-prop', {
           targets,
           values,
-          callcontracts,
           calldatas,
           description,
           userAddress,
           contractAddress: currentDao.contractAddress,
-          contractName: currentDao.name,
           contractAbi: currentDao.contractAbi,
           tokenAddress: currentDao.tokenAddress,
-          tokenName: currentDao.tokenName,
           tokenAbi: currentDao.tokenAbi
         });
 
@@ -53,40 +50,8 @@ const CreateProposal = (props) => {
     <div>
       <h1>Create Proposal for {currentDao.name}</h1>
       <Form method="post" ref={form}>
-        <Container fluid>
-          <Row>
-            <Col>
-              <Form.Group controlId="targets">
-                <Form.Label>Call Contract Target</Form.Label>
-                <Form.Control type="text" placeholder="0x1234" />
-              </Form.Group>
-            </Col>
-
-            <Col>
-              <Form.Group controlId="callcontracts">
-                <Form.Label>Call Contract Name</Form.Label>
-                <Form.Control type="text" placeholder='Example' />
-              </Form.Group>
-            </Col>
-          </Row>
-
-          <br />
-          <Row>
-            <Col>
-              <Form.Group controlId="values">
-                <Form.Label>Value</Form.Label>
-                <Form.Control type="text" placeholder="0" />
-              </Form.Group>
-            </Col>
-
-            <Col>
-              <Form.Group controlId="calldatas">
-                <Form.Label>Call Data</Form.Label>
-                <Form.Control type="text" placeholder='"changeMsg", ["Anarchy!"]' />
-              </Form.Group>
-            </Col>
-          </Row>
-
+        <Container  fluid>
+          <br/>
           <Row>
             <Col>
               <Form.Group controlId="description">
@@ -95,14 +60,38 @@ const CreateProposal = (props) => {
               </Form.Group>
             </Col>
           </Row>
+          <br/>
+          <Row>
+            <h6>External Executing Contract Information:</h6>
+            <Col>
+              <Form.Group controlId="targets">
+                <Form.Label>Target Address</Form.Label>
+                <Form.Control type="text" placeholder="0x1234" />
+              </Form.Group>
+            </Col>
+          <Row>
           <br />
-
+          </Row>
+            <Col>
+              <Form.Group controlId="calldatas">
+                <Form.Label>Call Data</Form.Label>
+                <Form.Control type="text" placeholder='"changeMsg", ["Anarchy!"]' />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="values">
+                <Form.Label>Value</Form.Label>
+                <Form.Control type="text" placeholder="0" />
+              </Form.Group>
+            </Col>
+          </Row>
+          <br />
           <Button variant="primary" type="submit" disabled={isLoading}>
           Submit
           </Button>
         </Container>
       </Form>
-
+      <br /><br />
       <Outlet />
     </div>
   );
