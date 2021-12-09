@@ -26,12 +26,15 @@ export default async function handler(req, res) {
 
   // propose proposal w/ GovernorAlpha contract
   const govAlpha = await ethers.getContractAt(governorAlphaName, govAlphaAddr);
+  govAlpha.on('');
   const tx = await govAlpha.propose([targets], [values], [calldata], description);
-  const receipt = await tx.wait();
+  // const receipt = await tx.wait();
+
+  // store receipt on mongodb
 
   console.log(receipt);
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.json({ name: 'prop created' });
+  res.json({ name: 'prop created', receiptId: receipt.id });
 };

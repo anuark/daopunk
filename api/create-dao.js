@@ -1,6 +1,6 @@
 require('./_config');
 const { ethers } = require('hardhat');
-const { ContractFactory } = ethers;
+// const { ContractFactory } = ethers;
 const fs = require('fs');
 const { compile } = require('./_util');
 const mongoose = require('mongoose');
@@ -43,9 +43,8 @@ export default async function handler(req, res) {
   const GovernorAlpha = await ethers.getContractFactory(abiGv, byteCodeGv);
   const govContract = await GovernorAlpha.deploy(timelock.address, token.address, addr1, name);
   console.log(`GOVERNOR CONTRACT: ${govContract.address}`);
-  
   const Dao = mongoose.model('Dao');
-  const dao = new Dao;
+  const dao = new Dao();
   dao.name = name;
   dao.ownerAddress = ownerAddress;
   dao.contractAddress = govContract.address;
@@ -57,5 +56,5 @@ export default async function handler(req, res) {
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.json({ name: 'created' });
+  res.json(dao);
 };

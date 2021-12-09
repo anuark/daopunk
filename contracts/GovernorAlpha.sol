@@ -125,6 +125,7 @@ contract GovernorAlpha {
         newProposal.executed= false;
 
         emit ProposalCreated(newProposal.id, msg.sender, targets, values, calldatas, startBlock, endBlock, description);
+
         return newProposal.id;
     }
 

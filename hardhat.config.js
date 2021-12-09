@@ -1,8 +1,8 @@
-require("@nomiclabs/hardhat-waffle");
-require("dotenv").config();
+require('@nomiclabs/hardhat-waffle');
+require('dotenv').config();
 
 module.exports = {
-  solidity: "^0.8.10",
+  solidity: '^0.8.10',
   defaultNetwork: 'localhost',
   networks: {
     // rinkeby: {

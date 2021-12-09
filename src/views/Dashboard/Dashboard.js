@@ -5,10 +5,8 @@ import { instance } from '../../config';
 import './Dashboard.css';
 
 const Dashboard = props => {
-  const { userAddress } = props;
+  const { setCurrentDao } = props;
   const [daoList, setDaoList] = useState([]);
-
-  console.log(userAddress, 'userAddress');
 
   useEffect(() => {
     instance.get('/').then(({ data }) => {
@@ -29,6 +27,9 @@ const Dashboard = props => {
     });
 
 */
+  // const onClick = () => {
+  //   console.log('clicked');
+  // };
 
   // 4 Col per Row
   // DAO address
@@ -38,11 +39,11 @@ const Dashboard = props => {
   const productRows = rows.map((row, i) => daoList.slice(i * 4, i * 4 + 4));
   const content = productRows.map((row, i) => (
     <Row key={i}>
-      { row.map((val, i) => (
+      { row.map((dao, i) => (
         <Col className='dao-item' key={i}>
-          <Link to="/daoId">
-          <h4 className="text-primary">{val.name}</h4>
-          <p><span className="text-muted">Transactions</span> <br />{val.transactions}</p>
+          <Link to={`/dao/${dao.contractAddress}`} onClick={() => setCurrentDao(dao)}>
+            <h4 className="text-primary">{dao.name}</h4>
+            <p><span className="text-muted">Transactions</span> <br />{dao.transactions}</p>
 
           </Link>
         </Col>

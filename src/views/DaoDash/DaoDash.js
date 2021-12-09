@@ -1,4 +1,4 @@
-import { Navbar, Nav, Form, FormControl, Button, Container, Row, Col  } from 'react-bootstrap';
+import { Navbar, Nav, Form, FormControl, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { instance } from '../../config';
@@ -6,7 +6,8 @@ import { BsPlusCircle, BsBookmarkCheck } from 'react-icons/bs';
 import './DaoDash.css';
 
 const DaoDash = props => {
-  const { userAddress } = props;
+  const { userAddress, currentDao } = props;
+  console.log(currentDao);
   // const [daoList, setDaoList] = useState([]);
   const [daoId] = useState([]);
 
@@ -40,12 +41,12 @@ const DaoDash = props => {
   //     }
   //   </Row>
   // ));
-  const content = ['prop4', 'prop3', 'prop2', 'prop1'];
+  // const content = ['prop4', 'prop3', 'prop2', 'prop1'];
 
   return (
-     <div>
+    <div>
       <Row>
-        <h3>[Dao-name] Dashboard </h3>
+        <h3>{currentDao.name} Dashboard </h3>
         <Nav className="justify-content-center">
           <Link to="/propose" >
             <Nav.Item ><Button className="text-light bg-primary" variant="primary"><BsPlusCircle /> Create Proposal</Button></Nav.Item>
@@ -62,7 +63,6 @@ const DaoDash = props => {
           <p>Method Call:</p>
         </Col>
         <Col className="col-3">
-         
           <Nav className="justify-content-center">
             <Link to="/vote">
               <Button className="text-dark bg-light justify-content-center" variant="primary"><BsBookmarkCheck /> Vote on Prop: #</Button>
@@ -73,7 +73,14 @@ const DaoDash = props => {
       <br />
       <Row>
         <h4>Proposal History: (last 5 props)</h4>
-        <Container> { content } </Container>
+        <Container> { currentDao.proposalHistory.map((val, i) => {
+          return (
+            <Row key={i}>
+              <h4>{val.description}</h4>
+              <h5>Passed: {val.passed ? 'Passed' : 'Not passed'}</h5>
+            </Row>
+          );
+        }) } </Container>
       </Row>
     </div>
   );

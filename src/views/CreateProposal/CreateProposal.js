@@ -3,14 +3,17 @@ import { Outlet } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const CreateProposal = () => {
+const CreateProposal = (props) => {
   const form = React.createRef();
+  const { currentDao, userAddress } = props;
+  console.log(currentDao, 'currentDao');
+  console.log(userAddress, 'userAddress');
 
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     form.current.addEventListener('submit', async(ev) => {
-      if (!isLoading) {          
+      if (!isLoading) {
         setLoading(true);
         console.log('creating prop');
         ev.preventDefault();
@@ -19,19 +22,25 @@ const CreateProposal = () => {
         const callcontracts = document.getElementById('callcontracts').value;
         const calldatas = document.getElementById('calldatas').value;
         const description = document.getElementById('description').value;
+        const userAddress = document.getElementById('description').value;
 
         const res = await axios.post('/api/create-prop', {
           targets,
           values,
           callcontracts,
           calldatas,
-          description
+          description,
+          userAddress,
+          contractAddress: currentDao.contractAddress,
+          contractName: currentDao.name,
+          tokenAddress: currentDao.tokenAddress,
+          tokenName: currentDao.tokenName
         });
 
         if (res.status === 200) {
           alert('Prop created');
           setLoading(false);
-          location.pathname = "/daoId";
+          location.pathname = '/dao/'.currentDao.contractAddress;
         }
       }
     });

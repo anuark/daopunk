@@ -3,42 +3,46 @@ import { Outlet } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const CreateDao = () => {
+const CreateDao = (props) => {
   const form = React.createRef();
+  const { userAddress, currentDao, setCurrentDao } = props;
 
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-      form.current.addEventListener('submit', async(ev) => {
-        if (!isLoading) {
-          setLoading(true);
-          console.log('creating dao');
-          ev.preventDefault();
-          const tknCap = document.getElementById('tokenCap').value;
+    document.getElementById('owner').value = userAddress;
 
-          const name = document.getElementById('name').value;
-          const owner = document.getElementById('owner').value;
-          const tokenName = document.getElementById('tokenName').value;
-          const tokenCap = tknCap > 100 ? tknCap : 10000000;
-          const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
-          const tokenSymbol = document.getElementById('tokenSymbol').value;
+    form.current.addEventListener('submit', async(ev) => {
+      if (!isLoading) {
+        setLoading(true);
+        console.log('creating dao');
+        ev.preventDefault();
+        const tknCap = document.getElementById('tokenCap').value;
 
-          const res = await axios.post('/api/create-dao', {
-            name,
-            owner,
-            tokenName,
-            tokenCap,
-            hasQuadraticVoting,
-            tokenSymbol
-          });
+        const name = document.getElementById('name').value;
+        const owner = document.getElementById('owner').value;
+        const tokenName = document.getElementById('tokenName').value;
+        const tokenCap = tknCap > 100 ? tknCap : 10000000;
+        const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
+        const tokenSymbol = document.getElementById('tokenSymbol').value;
 
-          if (res.status === 200) {
-            alert('DAO created');
-            setLoading(false);
-            location.pathname = "/daoId";
-          }
+        const res = await axios.post('/api/create-dao', {
+          name,
+          owner,
+          tokenName,
+          tokenCap,
+          hasQuadraticVoting,
+          tokenSymbol
+        });
+
+        if (res.status === 200) {
+          alert('DAO created');
+          setLoading(false);
+          setCurrentDao(res.data);
+          location.pathname = '/dao/' + res.data.contractAddress;
         }
-      });
+      }
+    });
   }, [isLoading]);
 
   return (

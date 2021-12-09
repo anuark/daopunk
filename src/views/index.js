@@ -10,4 +10,4 @@ export {
   CreateDAO,
   CreateProposal,
   CastVote
-}
+};
