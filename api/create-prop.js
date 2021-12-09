@@ -14,6 +14,7 @@ export default async function handler(req, res) {
   // const Example = await ethers.getContractAt(exAbi, exBytecode); //abi, address
   const example = await Example.deploy();
   await example.deployed();
+  console.log(example.address, 'example.address');
 
   // call contract and call data from user input
   // const callContractName = `"${callcontracts}"`;
@@ -26,6 +27,7 @@ export default async function handler(req, res) {
   // const token = await ethers.getContractAt(tokenAbi, tokenAddress);
   const accounts = await ethers.getSigners();
   const token = new ethers.Contract(tokenAddress, tokenAbi, accounts[0]);
+
   await token.delegate(userAddress);
 
   // const callContract = await ethers.getContractAt(exAbi, example.address);
@@ -41,9 +43,10 @@ export default async function handler(req, res) {
   const receipt = await tx.wait();
 
   // store receipt on mongodb
-  console.log(receipt, 'receipt');
+  // console.log(receipt, 'receipt');
 
   res.statusCode = 200;
   res.setHeader('Content-Type', 'application/json');
-  res.json({ name: 'prop created', receiptId: receipt.id });
+  // res.json({ name: 'prop created', receiptId: receipt.id });
+  res.json({ name: 'prop created' });
 };
