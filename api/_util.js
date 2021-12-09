@@ -41,6 +41,9 @@ const compile = (fileBuf, name) => {
     case 'GovernorAlpha.sol':
       res = [output.contracts.name.GovernorAlpha.abi, output.contracts.name.GovernorAlpha.evm.bytecode];
       break;
+    case 'Example.sol':
+      res = [output.contracts.name.Example.abi, output.contracts.name.Example.evm.bytecode];
+      break;
   }
 
   return res;

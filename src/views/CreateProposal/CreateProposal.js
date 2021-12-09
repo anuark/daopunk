@@ -34,8 +34,10 @@ const CreateProposal = (props) => {
           userAddress,
           contractAddress: currentDao.contractAddress,
           contractName: currentDao.name,
+          contractAbi: currentDao.contractAbi,
           tokenAddress: currentDao.tokenAddress,
-          tokenName: currentDao.tokenName
+          tokenName: currentDao.tokenName,
+          tokenAbi: currentDao.tokenAbi
         });
 
         if (res.status === 200) {

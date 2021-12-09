@@ -7,38 +7,11 @@ import './DaoDash.css';
 
 const DaoDash = props => {
   const { userAddress, currentDao, setCurrentDao } = props;
-  // const [daoList, setDaoList] = useState([]);
   const [daoId] = useState([]);
-
-  // console.log(userAddress, 'userAddress');
 
   useEffect(() => {
     console.log(currentDao, 'currentDao');
   }, [currentDao]);
-
-  // 4 Col per Row
-  // DAO address
-  // token address
-  // dao name
-
-  // Use the code below to list out Proposal History
-
-  // const rows = [...Array(Math.ceil(daoList.length / 4))];
-  // const productRows = rows.map((row, i) => daoList.slice(i * 4, i * 4 + 4));
-  // const content = productRows.map((row, i) => (
-  //   <Row key={i}>
-  //     { row.map((val, i) => (
-  //       <Col className='dao-item' key={i}>
-  //         <Link to="#">
-  //         <h4 className="text-primary">{val.name}</h4>
-  //         <p><span className="text-muted">Transactions</span> <br />{val.transactions}</p>
-  //         </Link>
-  //       </Col>
-  //     ))
-  //     }
-  //   </Row>
-  // ));
-  // const content = ['prop4', 'prop3', 'prop2', 'prop1'];
 
   return (
     <div>
