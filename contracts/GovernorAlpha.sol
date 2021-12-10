@@ -4,6 +4,9 @@ pragma solidity 0.8.10;
 contract GovernorAlpha {
     string public name = "GovernorAlpha";
 
+    // for Quadratically weighted voting;
+    bool public qv;
+
     function quorumVotes() public pure returns (uint) { return 5000000e18; } // 5,000,000 = 50%
 
     function proposalThreshold() public pure returns (uint) { return 100000e18; } // 100,000 = 1% of Comp
@@ -188,7 +191,8 @@ contract GovernorAlpha {
             return ProposalState.Pending;
         } else if (block.number <= proposal.endBlock) {
             return ProposalState.Active;
-        } else if (proposal.forVotes <= proposal.againstVotes || proposal.forVotes < quorumVotes()) {
+        // } else if (proposal.forVotes <= proposal.againstVotes || proposal.forVotes < quorumVotes()) {
+        } else if (proposal.forVotes <= proposal.againstVotes || proposal.forVotes < 10000) {
             return ProposalState.Defeated;
         } else if (proposal.eta == 0) {
             return ProposalState.Succeeded;

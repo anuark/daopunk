@@ -16,7 +16,7 @@ contract Token {
     uint8 public constant decimals = 18;
 
     /// @notice Total number of tokens in circulation
-    uint public totalSupply; // 10 million Comp
+    uint public constant totalSupply = 10000000e18; // 10 million Comp
 
     mapping (address => mapping (address => uint96)) internal allowances;
 
@@ -66,7 +66,7 @@ contract Token {
         balances[account] = uint96(totalSupply);
         name = _name;
         symbol = _symbol;
-        totalSupply = _totalSupply * 1000000000000000000;
+        // totalSupply = _totalSupply;
         qv = _qv;
         emit Transfer(address(0), account, totalSupply, qv);
     }
