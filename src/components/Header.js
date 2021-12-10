@@ -73,10 +73,10 @@ const Header = props => {
 
         <Nav className="justify-content-end">
           <Nav.Item>
-            <NavDropdown title="Rinkeby" id="nav-dropdown" className="me-3">
-              <NavDropdown.Item eventKey="4.1">Ethereum mainnet</NavDropdown.Item>
+            <NavDropdown title="Localhost" id="nav-dropdown" className="me-3">
+              <NavDropdown.Item>Ethereum mainnet</NavDropdown.Item>
               <NavDropdown.Item>Ropsten</NavDropdown.Item>
-              <NavDropdown.Item eventKey="4.3">Localhost</NavDropdown.Item>
+              <NavDropdown.Item>Rinkeby</NavDropdown.Item>
             </NavDropdown>
           </Nav.Item>
           <Nav.Item>

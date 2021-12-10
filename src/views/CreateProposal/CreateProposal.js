@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const CreateProposal = (props) => {
   const form = React.createRef();
-  const { currentDao, userAddress } = props;
+  const { currentDao, userAddress, setShowLoading, setLoadingText } = props;
   const navigate = useNavigate();
   console.log(currentDao, 'currentDao');
   console.log(userAddress, 'userAddress');
@@ -24,6 +24,8 @@ const CreateProposal = (props) => {
         const calldatas = document.getElementById('calldatas').value;
         const description = document.getElementById('description').value;
 
+        setShowLoading(true);
+        setLoadingText('Creting Proposal...');
         const res = await axios.post('/api/create-prop', {
           targets,
           values,
@@ -40,10 +42,13 @@ const CreateProposal = (props) => {
         });
 
         if (res.status === 200) {
+          setShowLoading(false);
           alert('Prop created');
           setLoading(false);
           navigate(`/dao/${currentDao.contractAddress}`);
         }
+
+        setShowLoading(false);
         // navigate(`/dao/${res.data.contractAddress}`);
       }
     });

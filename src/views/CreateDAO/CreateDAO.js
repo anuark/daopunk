@@ -6,7 +6,7 @@ import axios from 'axios';
 const CreateDao = (props) => {
   const form = React.createRef();
   const navigate = useNavigate();
-  const { userAddress, currentDao, setCurrentDao } = props;
+  const { userAddress, currentDao, setCurrentDao, setShowLoading, setLoadingText } = props;
 
   const [isLoading, setLoading] = useState(false);
 
@@ -27,6 +27,8 @@ const CreateDao = (props) => {
         const hasQuadraticVoting = document.getElementById('quadraticVoting').value;
         const tokenSymbol = document.getElementById('tokenSymbol').value;
 
+        setShowLoading(true);
+        setLoadingText('Generating DAO...');
         const res = await axios.post('/api/create-dao', {
           name,
           owner,
@@ -38,12 +40,16 @@ const CreateDao = (props) => {
         });
 
         if (res.status === 200) {
+          setShowLoading(false);
           alert('DAO created');
           setLoading(false);
           await setCurrentDao(res.data);
           console.log(res.data, 'after setDao');
-          navigate(`/dao/${res.data.contractAddress}`);
+          // navigate(`/dao/${res.data.contractAddress}`);
+          navigate('/');
         }
+
+        setShowLoading(false);
       }
     });
   }, [isLoading]);
