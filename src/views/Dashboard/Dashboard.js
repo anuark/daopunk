@@ -43,7 +43,7 @@ const Dashboard = props => {
         <Col className='dao-item' key={i}>
           <Link to={`/dao/${dao.contractAddress}`} onClick={() => setCurrentDao(dao)}>
             <h4 className="text-primary">{dao.name}</h4>
-            <p><span className="text-muted">Transactions</span> <br />{dao.transactions}</p>
+              <p><span className="text-muted">Proposals: { dao.proposalsCount ?? 0 }</span> <br />{dao.transactions}</p>
 
           </Link>
         </Col>

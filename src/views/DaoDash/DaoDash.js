@@ -25,7 +25,7 @@ const DaoDash = props => {
       </Row>
       <br />
       <Row className="text-light bg-secondary rounded p-4">
-        <Nav className="justify-content-center"><h4>Current Prop</h4></Nav>
+        <Nav className="justify-content-center"><h4>Current Proposal</h4></Nav>
         <Col >
           <p>Description:</p>
           <p>Value:</p>

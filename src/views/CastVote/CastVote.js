@@ -50,7 +50,7 @@ const CastVote = props => {
           <Row>
             <Col>
               <Form.Group controlId="id">
-                <Form.Label>Prop ID</Form.Label>
+                <Form.Label>Proposal ID</Form.Label>
                 <Form.Control type="text" placeholder="1" />
               </Form.Group>
             </Col>
