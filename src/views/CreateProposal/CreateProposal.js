@@ -25,7 +25,7 @@ const CreateProposal = (props) => {
         const description = document.getElementById('description').value;
 
         setShowLoading(true);
-        setLoadingText('Creting Proposal...');
+        setLoadingText('Creating Proposal...');
         const res = await axios.post('/api/create-prop', {
           targets,
           values,
